@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
   <title>Spring MVC请求返回400的解决方案 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：  请求方式是否匹配，如：POST 是否要要求请求体，但是没有传 URL参数是否匹配  如果以上情况还找不出错误，一般返回400就是参数不匹配导致，今天我就遇到一个这个坑，使用REST请求工具测试POST方式接口返回400且没有错误提示，经反复检查发现是一个不注意在请求体json格式不正确，在最后一个字段后多">
+  <meta name="description" content="当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：  请求方式是否匹配，如：POST 是否要要求请求体，但是没有传 URL参数是否匹配">
 <meta name="keywords" content="Java,Spring MVC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring MVC请求返回400的解决方案">
 <meta property="og:url" content="https://yizzuide.github.io/2019/05/20/Spring MVC使用POST一直请求返回400，且没有错误提示的解决方案/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：  请求方式是否匹配，如：POST 是否要要求请求体，但是没有传 URL参数是否匹配  如果以上情况还找不出错误，一般返回400就是参数不匹配导致，今天我就遇到一个这个坑，使用REST请求工具测试POST方式接口返回400且没有错误提示，经反复检查发现是一个不注意在请求体json格式不正确，在最后一个字段后多">
+<meta property="og:description" content="当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：  请求方式是否匹配，如：POST 是否要要求请求体，但是没有传 URL参数是否匹配">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-20T07:01:39.036Z">
+<meta property="og:updated_time" content="2019-05-23T13:01:15.165Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring MVC请求返回400的解决方案">
-<meta name="twitter:description" content="当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：  请求方式是否匹配，如：POST 是否要要求请求体，但是没有传 URL参数是否匹配  如果以上情况还找不出错误，一般返回400就是参数不匹配导致，今天我就遇到一个这个坑，使用REST请求工具测试POST方式接口返回400且没有错误提示，经反复检查发现是一个不注意在请求体json格式不正确，在最后一个字段后多">
+<meta name="twitter:description" content="当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：  请求方式是否匹配，如：POST 是否要要求请求体，但是没有传 URL参数是否匹配">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -186,6 +186,7 @@
 <li>是否要要求请求体，但是没有传</li>
 <li>URL参数是否匹配</li>
 </ol>
+<a id="more"></a>
 <p>如果以上情况还找不出错误，一般返回400就是参数不匹配导致，今天我就遇到一个这个坑，使用REST请求工具测试POST方式接口返回400且没有错误提示，经反复检查发现是一个不注意在请求体json格式不正确，在最后一个字段后多加一个”,“：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"platformId"</span>: <span class="number">123</span>,</span><br><span class="line">  <span class="attr">"platformProductId"</span>: <span class="number">123</span>,</span><br><span class="line">  <span class="attr">"productNum"</span>:<span class="string">"xxx-xx-123"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>正确的格式应该是：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"platformId"</span>: <span class="number">123</span>,</span><br><span class="line">  <span class="attr">"platformProductId"</span>: <span class="number">123</span>,</span><br><span class="line">  <span class="attr">"productNum"</span>:<span class="string">"xxx-xx-123"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>都是Copy的错，哈哈，记录下，防再出错。。</p>
@@ -317,6 +318,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spring MVC使用Jackson之从业务总结的技巧
+        
+      </div>
+    </a>
   
   
     <a href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/" id="article-nav-older" class="article-nav-link-wrap">
@@ -456,7 +466,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,11 +474,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>Repeat the song | 梦路人的博客</title>
+  <title>Spring MVC使用Jackson之从业务总结的技巧 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;我依然记得那个很挤的小楼，和几个小伙住在偏僻的顶层里，边上的网吧，路边的小摊，流水的车辆，还有一条街的菜市场也是我们经常去的地方，自己做饭总是比外面要便宜些，那时候还没有连网，经常会去网吧里挂个QQ，才能和以前的朋友联系上，因为当时还没有普及智能手机吧。从这条街出去就是五一广场主路，这应该是长沙最繁华的地段了，因为边上有太平老街、步行街、橘子洲，这也是我们经常去地方。">
-<meta name="keywords" content="民摇吉他曲">
+  <meta name="description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
+<meta name="keywords" content="Java,Spring MVC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Repeat the song">
-<meta property="og:url" content="https://yizzuide.github.io/2017/02/26/Repeat-the-song/index.html">
+<meta property="og:title" content="Spring MVC使用Jackson之从业务总结的技巧">
+<meta property="og:url" content="https://yizzuide.github.io/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;我依然记得那个很挤的小楼，和几个小伙住在偏僻的顶层里，边上的网吧，路边的小摊，流水的车辆，还有一条街的菜市场也是我们经常去的地方，自己做饭总是比外面要便宜些，那时候还没有连网，经常会去网吧里挂个QQ，才能和以前的朋友联系上，因为当时还没有普及智能手机吧。从这条街出去就是五一广场主路，这应该是长沙最繁华的地段了，因为边上有太平老街、步行街、橘子洲，这也是我们经常去地方。">
+<meta property="og:description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-12T11:21:01.970Z">
+<meta property="og:updated_time" content="2019-05-23T13:00:11.508Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Repeat the song">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;我依然记得那个很挤的小楼，和几个小伙住在偏僻的顶层里，边上的网吧，路边的小摊，流水的车辆，还有一条街的菜市场也是我们经常去的地方，自己做饭总是比外面要便宜些，那时候还没有连网，经常会去网吧里挂个QQ，才能和以前的朋友联系上，因为当时还没有普及智能手机吧。从这条街出去就是五一广场主路，这应该是长沙最繁华的地段了，因为边上有太平老街、步行街、橘子洲，这也是我们经常去地方。">
+<meta name="twitter:title" content="Spring MVC使用Jackson之从业务总结的技巧">
+<meta name="twitter:description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -37,8 +37,6 @@
 
   
 
-<link rel="stylesheet" href="/assets/css/APlayer.min.css" class="aplayer-style-marker">
-<script src="/assets/js/APlayer.min.js" class="aplayer-script-marker"></script>
 </head>
 </html>
 <body>
@@ -157,20 +155,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Repeat-the-song" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Spring MVC使用Jackson之从业务总结的技巧" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Repeat the song
+      Spring MVC使用Jackson之从业务总结的技巧
     </h1>
   
 
         
-        <a href="/2017/02/26/Repeat-the-song/" class="archive-article-date">
-  	<time datetime="2017-02-25T16:30:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-26</time>
+        <a href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/" class="archive-article-date">
+  	<time datetime="2019-05-23T12:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
 </a>
         
       </header>
@@ -182,21 +180,23 @@
             <!-- 文章内部标题下方添加内容 -->
           </div>
         
-        <p>&emsp;&emsp;我依然记得那个很挤的小楼，和几个小伙住在偏僻的顶层里，边上的网吧，路边的小摊，流水的车辆，还有一条街的菜市场也是我们经常去的地方，自己做饭总是比外面要便宜些，那时候还没有连网，经常会去网吧里挂个QQ，才能和以前的朋友联系上，因为当时还没有普及智能手机吧。从这条街出去就是五一广场主路，这应该是长沙最繁华的地段了，因为边上有太平老街、步行街、橘子洲，这也是我们经常去地方。</p>
+        <p>SpringBoot工程里的控制器在使用<code>@ResponseBody</code>时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。</p>
+<h2 id="自定义输出格式"><a href="#自定义输出格式" class="headerlink" title="自定义输出格式"></a>自定义输出格式</h2><p>自定义字段名：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonProperty</span>(<span class="string">"error_code"</span>)</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> errorCode;</span><br><span class="line"><span class="meta">@JsonProperty</span>(<span class="string">"error_message"</span>)</span><br><span class="line"><span class="keyword">private</span> String errorMessage;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p>&emsp;&emsp;虽然这个小集市街上的人很多，由于我们住在最高层，所以很少能听到下面的噪杂声。每当一个人待着的时候，才知道什么是寂静，即使人多时说着一些扯谈的话，但那也是好的，小书同学经常讲起过去的事，我也时常听得入迷，就像在经历着他过往的事，想着把这种感情的过往编写成melody，希望永封成回忆的数据。</p>
-<p>&emsp;&emsp;在这个地方我过过一个愉快的生日，那时来了一些旧日的同学，还带来了很多礼物，让我很是惊喜，因为只叫过其中一个（只因只有他号码，哈哈）。我这边的室友小宾帮着炒着菜（当然这也是他的强项），还买了几瓶啤酒，和这些旧日的同学虽然表面没有表达太多感情，说说笑笑，但一切都在酒中，切着蛋糕，大家追赶着……</p>
-<p>&emsp;&emsp;持时之物，一切皆在尽言中，青青河边留，有待在何方。</p>
-
-        <div id="aplayer-dgEtpnFO" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
-			  <script>
-				  var options = {"narrow":false,"autoplay":true,"showlrc":0,"music":[{"title":"Repeat the song","author":"依左最低音","url":"http://bucket.17gx.com.cn/Repeat%20The%20Song.mp3","pic":"http://i.17gx.com.cn/Album2011-2013.png"},{"title":"Repeat the song（尾奏扫弦加长版）","author":"依左最低音","url":"/mp3/yizzuide/Repeat_the_song_End.m4a","pic":""}]};
-				  options.element = document.getElementById("aplayer-dgEtpnFO");
-				  var ap = new APlayer(options);
-			    window.aplayers || (window.aplayers = []);
-				  window.aplayers.push(ap);
-			  </script>
-<h2 id="Repeat-the-song"><a href="#Repeat-the-song" class="headerlink" title="Repeat the song"></a><p align="center">Repeat the song</p><p></p></h2><p><strong>4/4 C小调</strong><br><strong>曲/词/唱：依左最低音</strong><br>C&emsp;&emsp;&emsp;&emsp;Em<br>Why you smile?<br>Am&emsp;&emsp;Em<br>Why you cry?<br>C&emsp;&emsp;&emsp;&emsp;Am&emsp;&emsp;Em&emsp;&emsp;&emsp;Am<br>Why you love can you say about?<br>C&emsp;&emsp;&emsp;&emsp;Em<br>What’s the feel?<br>Am&emsp;&emsp;&emsp;&emsp;Em<br>What’s you kown?<br>C&emsp;&emsp;&emsp;&emsp;Am&emsp;&emsp;&emsp;Em&emsp;&emsp;&emsp;&emsp;Am<br>Girl of my dreams can you hear the song<br>Am&emsp;&emsp;&emsp;&emsp;C&emsp;&emsp;Em&emsp;Am<br>还是那风儿飘飘，雨儿淋沥<br>Am&emsp;C&emsp;&emsp;Em&emsp;&emsp;Am<br>还是曾经它完美的故事<br>Dm&emsp;&emsp;&emsp;Em&emsp;&emsp;<br>或许还有点真诚<br>C&emsp;&emsp;&emsp;Am&emsp;&emsp;<br>他们所说的事<br>Em&emsp;&emsp;Am<br>在世界传说<br><!--你知道吗？我真的喜欢你--><br>C&emsp;&emsp;&emsp;&emsp;Em<br>Having this pen<br>Am&emsp;&emsp;&emsp;&emsp;Em<br>Having this notes<br>C&emsp;&emsp;&emsp;&emsp;Am&emsp;&emsp;Em&emsp;&emsp;&emsp;Am<br>Would you to read all the things?<br>C&emsp;&emsp;&emsp;&emsp;Em<br>Where to run?<br>Am&emsp;&emsp;Em&emsp;<br>Where to go?<br>C&emsp;&emsp;&emsp;Am&emsp;&emsp;Em&emsp;&emsp;&emsp;&emsp;Am<br>When I am alone repeat the song<br>Am&emsp;&emsp;&emsp;C&emsp;Em&emsp;Am<br>又是要别离，风中孤行<br>Am&emsp;C&emsp;&emsp;Em&emsp;&emsp;Am<br>有时又忆起那时的欢笑<br>Dm&emsp;&emsp;&emsp;Em<br>也许此次不回<br>C&emsp;&emsp;Am&emsp;Em&emsp;Am<br>哪里的回想着一声一声</p>
+<p>处理时间格式：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>, timezone=<span class="string">"GMT+8"</span>)</span><br><span class="line"><span class="keyword">private</span> Date time;</span><br></pre></td></tr></table></figure></p>
+<p>忽略不需要输出的字段：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonIgnore</span></span><br><span class="line"><span class="keyword">private</span> String bankName;</span><br><span class="line"><span class="meta">@JsonIgnore</span></span><br><span class="line"><span class="keyword">private</span> String bankCode;</span><br></pre></td></tr></table></figure></p>
+<h2 id="自定义输出视图"><a href="#自定义输出视图" class="headerlink" title="自定义输出视图"></a>自定义输出视图</h2><p>首先我们定义几个视图组，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单类型展示视图</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderSimple</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 详细类型展示视图，继承了OrderSimple，就会拥有简单类型展示视图</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderDetail</span> <span class="keyword">extends</span> <span class="title">OrderSimple</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接着应用到实体类，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="comment">// 所有字段应用到详情视图</span></span><br><span class="line"><span class="meta">@JsonView</span>(ProductOrderEntity.OrderDetail.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductOrderEntity</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 覆盖类上定义的，只有普通视图需要的字段</span></span><br><span class="line">    <span class="meta">@JsonView</span>(OrderSimple.class)</span><br><span class="line">    <span class="keyword">private</span> Long orderId;</span><br><span class="line">    <span class="meta">@JsonView</span>(OrderSimple.class)</span><br><span class="line">    <span class="keyword">private</span> Integer status;</span><br><span class="line">    <span class="meta">@JsonView</span>(OrderSimple.class)</span><br><span class="line">    <span class="keyword">private</span> String productName;</span><br><span class="line">    <span class="comment">// 没有注解的使用为类上定义的</span></span><br><span class="line">    <span class="keyword">private</span> Long productId;</span><br><span class="line">    <span class="keyword">private</span> String productNum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>应用到控制器的请求方法上返回，其中<code>HttpBody</code>是自定义前端通信结构类，<code>PageResult</code>是分布的VO对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"list"</span>)</span><br><span class="line"><span class="meta">@JsonView</span>(ProductOrderEntity.OrderSimple.class)</span><br><span class="line"><span class="function"><span class="keyword">public</span> HttpBody <span class="title">list</span><span class="params">(@RequestBody OrderRequestVO orderRequestVO)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取用户 id</span></span><br><span class="line">    PageResult&lt;ProductOrderEntity&gt; pageResult = productOrderService.queryList(...);</span><br><span class="line">    <span class="keyword">return</span> HttpBody.ok(pageResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但当我们运行后，发现显示的JSON如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>是的，什么也显示不了，楼主这才发现这货不能被包装在其它类中，也就是不能放入复合类型作为一个属性，如果方法直接返回<code>List&lt;ProductOrderEntity&gt;</code>是可以正常视图过滤的，但前端要的不是这样的格式，还是要包装到<code>HttpBody&lt;PageResult&lt;ProductOrderEntity&gt;&gt;</code>这样的类型，于是开始想办法找资料什么的，但网上文章没有说到过这个情况，自己经过熟悉的技术想了以下解决办法：</p>
+<ol>
+<li>使用AOP，但发现不行，因为获得的返回值是对象，还没有被Jackson解析，放弃。</li>
+<li>使用SpringMVC里的拦截器，还是一样获取到的还只是对象，没有到达解析那层，放弃。</li>
+<li>使用过滤器<code>Filter</code>，因为这样能拿到SpringMVC返回的JSON数据，但是又想到把JSON先转Map再包装到<code>HttpBody</code>，再序列化成JSON数据也太折腾了，而且性能也低，放弃。</li>
+</ol>
+<p>最后验证一下猜想，是不是可以在<code>HttpBody</code>和<code>PageResult</code>类上加上<code>@JsonView</code>来实现，因为<code>@JsonView</code>使用接口类型来实现视图过滤，而接口又是继承处<code>Object</code>的，所以有了实现如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@JsonView</span>(Object.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpBody</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">    <span class="keyword">private</span> T data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@JsonView</span>(Object.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageResult</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long total;</span><br><span class="line">    <span class="keyword">private</span> Integer totalPage;</span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经实验，成功解析了这个难题</p>
 
       
 
@@ -241,7 +241,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">民摇吉他曲</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
         		</li>
       		
 		</ul>
@@ -253,7 +257,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/音乐/" class="article-tag-list-link color3">音乐</a>
+        			<a href="/categories/后端开发/" class="article-tag-list-link color5">后端开发</a>
         		</li>
       		
 		</ul>
@@ -308,7 +312,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://yizzuide.github.io/2017/02/26/Repeat-the-song/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://yizzuide.github.io/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -322,18 +326,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/06/在Mac上配置基于PHPStorm调试环境/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          在Mac上配置基于PHPStorm调试环境
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/02/24/在Mac上配置PHP的开发环境/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在Mac上配置PHP的开发环境</div>
+    <a href="/2019/05/20/Spring MVC使用POST一直请求返回400，且没有错误提示的解决方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring MVC请求返回400的解决方案</div>
       <i class="icon-circle-right"></i>
     </a>
   
