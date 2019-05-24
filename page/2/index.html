@@ -46,11 +46,11 @@
 <div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<a href class="profilepic">
+		<a href="/" class="profilepic">
 			<img src="/assets/img/photo.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href>梦路人</a></h1>
+		  <h1 class="header-author"><a href="/">梦路人</a></h1>
 		</hgroup>
 		
 		<p class="header-subtitle">Having a remark is about raining</p>
@@ -242,6 +242,15 @@
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
         
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
         
     </div>
 </aside>
@@ -318,6 +327,15 @@
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
         
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
         
     </div>
 </aside>
@@ -358,7 +376,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		toc_hide_index: ,
+		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
 		showTags: true

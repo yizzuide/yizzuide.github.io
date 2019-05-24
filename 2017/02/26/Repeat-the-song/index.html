@@ -49,11 +49,11 @@
 <div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<a href class="profilepic">
+		<a href="/" class="profilepic">
 			<img src="/assets/img/photo.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href>梦路人</a></h1>
+		  <h1 class="header-author"><a href="/">梦路人</a></h1>
 		</hgroup>
 		
 		<p class="header-subtitle">Having a remark is about raining</p>
@@ -195,10 +195,10 @@
 <p>&emsp;&emsp;在这个地方我过过一个愉快的生日，那时来了一些旧日的同学，还带来了很多礼物，让我很是惊喜，因为只叫过其中一个（只因只有他号码，哈哈）。我这边的室友小宾帮着炒着菜（当然这也是他的强项），还买了几瓶啤酒，和这些旧日的同学虽然表面没有表达太多感情，说说笑笑，但一切都在酒中，切着蛋糕，大家追赶着……</p>
 <p>&emsp;&emsp;持时之物，一切皆在尽言中，青青河边留，有待在何方。</p>
 
-        <div id="aplayer-Tnisyvzk" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
+        <div id="aplayer-YfxpkKlp" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
 			  <script>
 				  var options = {"narrow":false,"autoplay":true,"showlrc":0,"music":[{"title":"Repeat the song","author":"依左最低音","url":"http://bucket.17gx.com.cn/Repeat%20The%20Song.mp3","pic":"http://i.17gx.com.cn/Album2011-2013.png"},{"title":"Repeat the song（尾奏扫弦加长版）","author":"依左最低音","url":"/mp3/yizzuide/Repeat_the_song_End.m4a","pic":""}]};
-				  options.element = document.getElementById("aplayer-Tnisyvzk");
+				  options.element = document.getElementById("aplayer-YfxpkKlp");
 				  var ap = new APlayer(options);
 			    window.aplayers || (window.aplayers = []);
 				  window.aplayers.push(ap);
@@ -315,7 +315,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yizzuide.github.io/2017/02/26/Repeat-the-song/" alt="微信分享二维码">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2017/02/26/Repeat-the-song/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -349,6 +349,15 @@
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
         
         
     </div>
@@ -414,7 +423,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		toc_hide_index: ,
+		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
 		showTags: true

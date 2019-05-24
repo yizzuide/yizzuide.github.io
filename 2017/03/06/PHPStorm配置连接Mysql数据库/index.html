@@ -53,11 +53,11 @@
 <div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<a href class="profilepic">
+		<a href="/" class="profilepic">
 			<img src="/assets/img/photo.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href>梦路人</a></h1>
+		  <h1 class="header-author"><a href="/">梦路人</a></h1>
 		</hgroup>
 		
 		<p class="header-subtitle">Having a remark is about raining</p>
@@ -313,7 +313,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yizzuide.github.io/2017/03/06/PHPStorm配置连接Mysql数据库/" alt="微信分享二维码">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2017/03/06/PHPStorm配置连接Mysql数据库/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -347,6 +347,15 @@
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
         
         
     </div>
@@ -412,7 +421,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		toc_hide_index: ,
+		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
 		showTags: true
