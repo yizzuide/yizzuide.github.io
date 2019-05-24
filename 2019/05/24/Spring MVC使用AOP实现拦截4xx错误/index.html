@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>Archives: 2017/3 | 梦路人的博客</title>
+  <title>Spring MVC使用AOP实现拦截4xx错误 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java、移动开发、前端技术分享博客">
-<meta name="keywords" content="梦路人的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="梦路人的博客">
-<meta property="og:url" content="https://yizzuide.github.io/archives/2017/03/index.html">
+  <meta name="description" content="最近我们的移动端联调的开发人员请求遇到一系列问题，发送POST请求响应415，发送GET请求响应404，按我们开发常识来看，应该是移动端发送请求的问题，消息体格式不正确异常，但又在日志里找不到错误的记录，移动端又需要一个规范的JSON通用错误返回，于是去调研了下实现的方式。">
+<meta name="keywords" content="Java,Spring MVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC使用AOP实现拦截4xx错误">
+<meta property="og:url" content="https://yizzuide.github.io/2019/05/24/Spring MVC使用AOP实现拦截4xx错误/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="Java、移动开发、前端技术分享博客">
+<meta property="og:description" content="最近我们的移动端联调的开发人员请求遇到一系列问题，发送POST请求响应415，发送GET请求响应404，按我们开发常识来看，应该是移动端发送请求的问题，消息体格式不正确异常，但又在日志里找不到错误的记录，移动端又需要一个规范的JSON通用错误返回，于是去调研了下实现的方式。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-24T11:46:46.070Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦路人的博客">
-<meta name="twitter:description" content="Java、移动开发、前端技术分享博客">
+<meta name="twitter:title" content="Spring MVC使用AOP实现拦截4xx错误">
+<meta name="twitter:description" content="最近我们的移动端联调的开发人员请求遇到一系列问题，发送POST请求响应415，发送GET请求响应404，按我们开发常识来看，应该是移动端发送请求的问题，消息体格式不正确异常，但又在日志里找不到错误的记录，移动端又需要一个规范的JSON通用错误返回，于是去调研了下实现的方式。">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -166,52 +167,89 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Spring MVC使用AOP实现拦截4xx错误" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/06/PHPStorm配置连接Mysql数据库/" class="archive-article-date">
-  	<time datetime="2017-03-06T12:17:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/06/PHPStorm配置连接Mysql数据库/">PHPStorm配置连接Mysql数据库</a>
+    <h1 class="article-title" itemprop="name">
+      Spring MVC使用AOP实现拦截4xx错误
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/05/24/Spring MVC使用AOP实现拦截4xx错误/" class="archive-article-date">
+  	<time datetime="2019-05-24T12:22:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近我们的移动端联调的开发人员请求遇到一系列问题，发送POST请求响应415，发送GET请求响应404，按我们开发常识来看，应该是移动端发送请求的问题，消息体格式不正确异常，但又在日志里找不到错误的记录，移动端又需要一个规范的JSON通用错误返回，于是去调研了下实现的方式。</p>
+<a id="more"></a>
+<p>首先有定义好的通信返回的VO类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SdCheckException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Setter</span> <span class="meta">@Getter</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SdCheckException</span><span class="params">(<span class="keyword">int</span> code, String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们再通过<code>@ControllerAdvice</code>定义一个切面异常处理器，继承自ResponseEntityExceptionHandler，这个类内部实现了很多常见的异常，不要尝试使用@ExceptionHandler捕获这类已经处理过的异常，因为运行工程会报错，所以直接覆盖相应处理方法即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestExceptionHandler</span> <span class="keyword">extends</span> <span class="title">ResponseEntityExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 处理自定义检查类异常</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(SdCheckException.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;HttpBody&gt; <span class="title">handleCheckException</span><span class="params">(SdCheckException e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(HttpBody.error(e.getCode(), e.getMessage()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 覆盖父类对方法上请求方式不支持的处理 */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleHttpRequestMethodNotSupported</span><span class="params">(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(HttpBody.error(<span class="number">404</span>, <span class="string">"请求的方式不支持"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 覆盖父类对方法上参数类型不匹配的处理 */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleTypeMismatch</span><span class="params">(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(HttpBody.error(<span class="number">400</span>, <span class="string">"请求的参数中有格式错误"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 覆盖父类对方法上请求提交的数据类型不支持的处理 */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleHttpMediaTypeNotSupported</span><span class="params">(HttpMediaTypeNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(HttpBody.error(<span class="number">415</span>, <span class="string">"请求的数据格式不支持"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 覆盖父类对方法上URL映射错误的处理 */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleNoHandlerFoundException</span><span class="params">(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(HttpBody.error(<span class="number">404</span>, <span class="string">"请求的URL错误，请求检测URL是否正确"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* Spring内部的默认异常处理逻辑，使用自定义返回消息体（以上类型默认都是调用这个）*/</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleExceptionInternal</span><span class="params">(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(HttpBody.error(<span class="number">500</span>, <span class="string">"服务器异常请重试"</span>));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如果你尝试访问，404还是返回默认的格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"timestamp"</span>: <span class="string">"2019-05-24T10:50:30.165+0000"</span>,</span><br><span class="line"><span class="string">"status"</span>: <span class="number">404</span>,</span><br><span class="line"><span class="string">"error"</span>: <span class="string">"Not Found"</span>,</span><br><span class="line"><span class="string">"message"</span>: <span class="string">"No message available"</span>,</span><br><span class="line"><span class="string">"path"</span>: <span class="string">"/api/prepare/check"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为还需要在application.yml里配置<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="comment"># 资源不生成mapping映射</span></span><br><span class="line"><span class="attr">    resources:</span></span><br><span class="line"><span class="attr">        add-mappings:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    mvc:</span></span><br><span class="line">        <span class="comment"># 404抛出NoHandlerFoundException异常</span></span><br><span class="line"><span class="attr">        throw-exception-if-no-handler-found:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境配置</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -224,70 +262,126 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/05/24/Spring MVC使用AOP实现拦截4xx错误/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/06/在Mac上配置基于PHPStorm调试环境/" class="archive-article-date">
-  	<time datetime="2017-03-06T10:39:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/24/SpringBoot使用之验证器@Valid与@Validated/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringBoot使用之验证器@Valid与@Validated</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/06/在Mac上配置基于PHPStorm调试环境/">在Mac上配置基于PHPStorm调试环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境配置</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
+
+  <!-- Valine评论 -->
+  
+    <div class="valine_comment"></div>
+    <!--载入js，在</body>之前插入即可-->
+    <!--Leancloud 操作库:-->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <!--Valine 的核心代码库-->
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script>
+        new Valine({
+            // AV 对象来自上面引入av-min.js
+            av: AV, 
+            el: '.valine_comment',
+            emoticon_url: 'https://cloud.panjunwen.com/alu',
+            emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+            app_id: 'ltb80FkEFxoebyDujMM3Y47P-gzGzoHsz',
+            app_key: 'WHBsemwm9VajU9MVpcY1RibX',
+            placeholder: '有什么问题，欢迎留言指正与交流...'
+        });
+    </script>
+  
 
 
           </div>
@@ -310,8 +404,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
