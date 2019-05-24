@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="梦路人的博客">
 <meta property="og:description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-23T13:00:11.508Z">
+<meta property="og:updated_time" content="2019-05-24T02:22:12.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring MVC使用Jackson之从业务总结的技巧">
 <meta name="twitter:description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
@@ -196,7 +196,7 @@
 <li>使用过滤器<code>Filter</code>，因为这样能拿到SpringMVC返回的JSON数据，但是又想到把JSON先转Map再包装到<code>HttpBody</code>，再序列化成JSON数据也太折腾了，而且性能也低，放弃。</li>
 </ol>
 <p>最后验证一下猜想，是不是可以在<code>HttpBody</code>和<code>PageResult</code>类上加上<code>@JsonView</code>来实现，因为<code>@JsonView</code>使用接口类型来实现视图过滤，而接口又是继承处<code>Object</code>的，所以有了实现如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@JsonView</span>(Object.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpBody</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">    <span class="keyword">private</span> T data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@JsonView</span>(Object.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageResult</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long total;</span><br><span class="line">    <span class="keyword">private</span> Integer totalPage;</span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>经实验，成功解析了这个难题</p>
+<p>OK，成功解决了</p>
 
       
 
@@ -464,7 +464,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,11 +472,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
