@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="梦路人的博客">
 <meta property="og:description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-24T02:22:12.789Z">
+<meta property="og:updated_time" content="2019-05-27T12:29:34.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring MVC使用Jackson之从业务总结的技巧">
 <meta name="twitter:description" content="SpringBoot工程里的控制器在使用@ResponseBody时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。 自定义输出格式自定义字段名：    1234@JsonProperty(&quot;error_code&quot;)private int errorCode;@JsonP">
@@ -194,7 +194,7 @@
 <p>忽略不需要输出的字段：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonIgnore</span></span><br><span class="line"><span class="keyword">private</span> String bankName;</span><br><span class="line"><span class="meta">@JsonIgnore</span></span><br><span class="line"><span class="keyword">private</span> String bankCode;</span><br></pre></td></tr></table></figure></p>
 <h2 id="自定义输出视图"><a href="#自定义输出视图" class="headerlink" title="自定义输出视图"></a>自定义输出视图</h2><p>首先我们定义几个视图组，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单类型展示视图</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderSimple</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 详细类型展示视图，继承了OrderSimple，就会拥有简单类型展示视图</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderDetail</span> <span class="keyword">extends</span> <span class="title">OrderSimple</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>接着应用到实体类，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="comment">// 所有字段应用到详情视图</span></span><br><span class="line"><span class="meta">@JsonView</span>(ProductOrderEntity.OrderDetail.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductOrderEntity</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 覆盖类上定义的，只有普通视图需要的字段</span></span><br><span class="line">    <span class="meta">@JsonView</span>(OrderSimple.class)</span><br><span class="line">    <span class="keyword">private</span> Long orderId;</span><br><span class="line">    <span class="meta">@JsonView</span>(OrderSimple.class)</span><br><span class="line">    <span class="keyword">private</span> Integer status;</span><br><span class="line">    <span class="meta">@JsonView</span>(OrderSimple.class)</span><br><span class="line">    <span class="keyword">private</span> String productName;</span><br><span class="line">    <span class="comment">// 没有注解的使用为类上定义的</span></span><br><span class="line">    <span class="keyword">private</span> Long productId;</span><br><span class="line">    <span class="keyword">private</span> String productNum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>应用到控制器的请求方法上返回，其中<code>HttpBody</code>是自定义前端通信结构类，<code>PageResult</code>是分布的VO对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"list"</span>)</span><br><span class="line"><span class="meta">@JsonView</span>(ProductOrderEntity.OrderSimple.class)</span><br><span class="line"><span class="function"><span class="keyword">public</span> HttpBody <span class="title">list</span><span class="params">(@RequestBody OrderRequestVO orderRequestVO)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取用户 id</span></span><br><span class="line">    PageResult&lt;ProductOrderEntity&gt; pageResult = productOrderService.queryList(...);</span><br><span class="line">    <span class="keyword">return</span> HttpBody.ok(pageResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>应用到控制器的请求方法上返回，其中<code>HttpBody</code>是自定义前端通信结构类，<code>PageResult</code>是分页的VO对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"list"</span>)</span><br><span class="line"><span class="meta">@JsonView</span>(ProductOrderEntity.OrderSimple.class)</span><br><span class="line"><span class="function"><span class="keyword">public</span> HttpBody <span class="title">list</span><span class="params">(@RequestBody OrderRequestVO orderRequestVO)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取用户 id</span></span><br><span class="line">    PageResult&lt;ProductOrderEntity&gt; pageResult = productOrderService.queryList(...);</span><br><span class="line">    <span class="keyword">return</span> HttpBody.ok(pageResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>但当我们运行后，发现显示的JSON如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>是的，什么也显示不了，楼主这才发现这货不能被包装在其它类中，也就是不能放入复合类型作为一个属性，如果方法直接返回<code>List&lt;ProductOrderEntity&gt;</code>是可以正常视图过滤的，但前端要的不是这样的格式，还是要包装到<code>HttpBody&lt;PageResult&lt;ProductOrderEntity&gt;&gt;</code>这样的类型，于是开始想办法找资料什么的，但网上文章没有说到过这个情况，自己经过熟悉的技术想了以下解决办法：</p>
 <ol>
@@ -496,11 +496,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,11 +508,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
