@@ -189,7 +189,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>相信很多开发者在项目开发中都只考虑功能实现，没有过多问题考虑执行效率问，今天从百忙的业务开发中解脱出来，终于可以抽时间优化一个业务导致慢查询的问题了，本篇文章从分析慢查询引起的原因到采用的优化方案全面讲解。</p>
-<p>项目中的业务是根据某个用户查询所有创建的进件后的所有订单，其中创建创建时间要倒序，并按照分页查询，以下是查询语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_id, user_id, platform_product_id, username, phone, <span class="string">`status`</span>, close_status, create_at, update_at <span class="keyword">FROM</span> sd_order <span class="keyword">WHERE</span> user_id = <span class="number">26</span> <span class="keyword">and</span> <span class="string">`status`</span> &gt;= <span class="number">30</span> <span class="keyword">order</span> <span class="keyword">by</span> create_at <span class="keyword">DESC</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+<p>项目中的业务是根据某个用户查询所有创建的进件后的所有订单，其中创建创建时间要倒序，并按照分页查询，以下是查询语句（省略了一些业务字段，但不影响阅读）：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_id, user_id, platform_product_id, username, phone, <span class="string">`status`</span>, close_status, create_at, update_at <span class="keyword">FROM</span> sd_order <span class="keyword">WHERE</span> user_id = <span class="number">26</span> <span class="keyword">and</span> <span class="string">`status`</span> &gt;= <span class="number">30</span> <span class="keyword">order</span> <span class="keyword">by</span> create_at <span class="keyword">DESC</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
         
           <a class="article-more-a" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/#more">more >></a>
         
@@ -1193,18 +1193,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
@@ -1213,15 +1201,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spring MVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
