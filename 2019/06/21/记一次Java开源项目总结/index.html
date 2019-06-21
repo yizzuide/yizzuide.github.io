@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>Archives: 2019 | 梦路人的博客</title>
+  <title>记一次Java开源项目总结 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java、移动开发、前端技术分享博客">
-<meta name="keywords" content="梦路人的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="梦路人的博客">
-<meta property="og:url" content="https://yizzuide.github.io/archives/2019/page/2/index.html">
+  <meta name="description" content="今年四月份开始尝试在Java领域的开源发展，说实话在Java领域造一个可以在业务上常用的轮子是很难的一件事，当然不是怀疑Java开发者写不出来。为什么这么说呢？一方面因为Java在开源界里很太多太多可以拿来就用的开源项目，所以很难找到一个知识方向可以开源的，特别是在Spring全家桶一家独大的情况下；另一方面是很多开发者在Spring上面写的一些业务代码都是一次性的，没有能够很多抽取并开源出来的。">
+<meta name="keywords" content="first">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次Java开源项目总结">
+<meta property="og:url" content="https://yizzuide.github.io/2019/06/21/记一次Java开源项目总结/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="Java、移动开发、前端技术分享博客">
+<meta property="og:description" content="今年四月份开始尝试在Java领域的开源发展，说实话在Java领域造一个可以在业务上常用的轮子是很难的一件事，当然不是怀疑Java开发者写不出来。为什么这么说呢？一方面因为Java在开源界里很太多太多可以拿来就用的开源项目，所以很难找到一个知识方向可以开源的，特别是在Spring全家桶一家独大的情况下；另一方面是很多开发者在Spring上面写的一些业务代码都是一次性的，没有能够很多抽取并开源出来的。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://i.17gx.com.cn/303fa6515dc8f9406511a36795d78aa8.jpg">
+<meta property="og:updated_time" content="2019-06-21T13:24:30.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦路人的博客">
-<meta name="twitter:description" content="Java、移动开发、前端技术分享博客">
+<meta name="twitter:title" content="记一次Java开源项目总结">
+<meta name="twitter:description" content="今年四月份开始尝试在Java领域的开源发展，说实话在Java领域造一个可以在业务上常用的轮子是很难的一件事，当然不是怀疑Java开发者写不出来。为什么这么说呢？一方面因为Java在开源界里很太多太多可以拿来就用的开源项目，所以很难找到一个知识方向可以开源的，特别是在Spring全家桶一家独大的情况下；另一方面是很多开发者在Spring上面写的一些业务代码都是一次性的，没有能够很多抽取并开源出来的。">
+<meta name="twitter:image" content="http://i.17gx.com.cn/303fa6515dc8f9406511a36795d78aa8.jpg">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -166,184 +169,220 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-记一次Java开源项目总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      记一次Java开源项目总结
+    </h1>
+  
+
+        
+        <a href="/2019/06/21/记一次Java开源项目总结/" class="archive-article-date">
+  	<time datetime="2019-06-21T12:43:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今年四月份开始尝试在Java领域的开源发展，说实话在Java领域造一个可以在业务上常用的轮子是很难的一件事，当然不是怀疑Java开发者写不出来。为什么这么说呢？一方面因为Java在开源界里很太多太多可以拿来就用的开源项目，所以很难找到一个知识方向可以开源的，特别是在Spring全家桶一家独大的情况下；另一方面是很多开发者在Spring上面写的一些业务代码都是一次性的，没有能够很多抽取并开源出来的。</p>
+<a id="more"></a>
+<p>正因为有如上原因，本人以前也是长期在Spring基础上写一次性业务代码，但是今年进一家有活力的公司，团队氛围都不错，又是做一个聚合的抽象API平台，所以给自己定了如下目标：</p>
+<ul>
+<li>代码块不允许出来重复代码在两处及以上的地方</li>
+<li>功能性业务代码尽量抽取成可重用的组件（这点上为开源项目做好了准备）</li>
+<li>尽量多地考虑扩展性，防止趋势可能的修改</li>
+<li>多运用常用设计模式，写出有思想的代码，如：策略模式、责任链模式、组合模式、适配器模式</li>
+</ul>
+<p>在这个聚合平台有一些可重用的组件后，我就打算开源一个聚合型的开源项目<a href="https://github.com/yizzuide/Milkomeda" target="_blank" rel="noopener">Milkomeda</a>，并且里面的组件的其它开发者在真实业务上需要的，虽然今年四月份就发布到Github上了，但并没有马上公开来，而是又经过了两个月的打磨，包括性能的优化、隐藏的bug修复。</p>
+<p>这两天在这个聚合项目的一个重要模块<code>Particle</code>出文档，也是花了好几个小时的打磨，包括让自己作为一个阅读者能看懂才行，最终的响应效果也是不错的，也给自己今后的开源路上多了一些信心，以下是发布到开发者头条的当日技术文章排名：</p>
+<p><img src="http://i.17gx.com.cn/303fa6515dc8f9406511a36795d78aa8.jpg" alt></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/24/SpringBoot使用之验证器@Valid与@Validated/" class="archive-article-date">
-  	<time datetime="2019-05-24T11:09:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/24/SpringBoot使用之验证器@Valid与@Validated/">SpringBoot使用之验证器@Valid与@Validated</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">first</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        			<a href="/categories/杂谈//" class="article-tag-list-link color3">杂谈</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/06/21/记一次Java开源项目总结/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/" class="archive-article-date">
-  	<time datetime="2019-05-23T12:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/16/设计一个API去重、次数限制组合器（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计一个API去重、次数限制组合器（一）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/">Spring MVC使用Jackson之从业务总结的技巧</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/20/Spring MVC请求返回400的解决方案/" class="archive-article-date">
-  	<time datetime="2019-05-20T06:45:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/20/Spring MVC请求返回400的解决方案/">Spring MVC请求返回400的解决方案</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
+  <!-- Valine评论 -->
+  
+    <div class="valine_comment"></div>
+    <!--载入js，在</body>之前插入即可-->
+    <!--Leancloud 操作库:-->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <!--Valine 的核心代码库-->
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script>
+        new Valine({
+            // AV 对象来自上面引入av-min.js
+            av: AV, 
+            el: '.valine_comment',
+            emoticon_url: 'https://cloud.panjunwen.com/alu',
+            emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+            app_id: 'ltb80FkEFxoebyDujMM3Y47P-gzGzoHsz',
+            app_key: 'WHBsemwm9VajU9MVpcY1RibX',
+            placeholder: '有什么问题，欢迎留言指正与交流...'
+        });
+    </script>
   
 
 
@@ -367,8 +406,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
