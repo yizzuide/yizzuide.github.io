@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="梦路人的博客">
 <meta property="og:description" content="目前正在回顾《JavaScript The Good Part》这本书里写的代码，这一本讲解了重要的语法特性，总结了该语言好的方面和不好的方面，这篇文章记录了其中关键要点。  看这篇文章前可以先看看：Javascript原型链之最易理解分析">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-05T07:51:42.276Z">
+<meta property="og:updated_time" content="2019-07-05T08:59:57.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="再拾JavaScript之语言精粹">
 <meta name="twitter:description" content="目前正在回顾《JavaScript The Good Part》这本书里写的代码，这一本讲解了重要的语法特性，总结了该语言好的方面和不好的方面，这篇文章记录了其中关键要点。  看这篇文章前可以先看看：Javascript原型链之最易理解分析">
@@ -213,6 +213,7 @@
 <li>抛出异常可以使用<code>throw</code>，如: <code>throw {name: &#39;TypeError&#39;,message: &#39;is not a number&#39;}</code>；异常捕获使用<code>try{}catch(e){}finally{}</code>。</li>
 <li>JavaScript有函数域。意味着函数的参数和定义的局部变量对外部不可见，并且函数内定义在任何地方定义的变量，在该函数任意地方都可见（也就是说域中定义的变量会被提升定义到顶部，只是赋值操作还是原位置）。在很多现代语言中都推荐变量定义越晚越好，但在JavaScript中这是一个不好的使用方式，因为它缺乏块域（如：if、for内定义的变量对外部可见），所以最好定义所有变量到函数体的最开始执行位置。</li>
 <li>一个有意思的个例是内部函数比外部函数拥有更长的生命周期，这是因为函数有能力访问创建它的上下文，这就叫闭包。</li>
+<li>一个模块通用模式就是一个函数定义了私有属性和函数，并且创建并返回一个特权的函数用于访问内部数据。</li>
 </ol>
 
       
@@ -526,11 +527,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spring MVC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spring MVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
