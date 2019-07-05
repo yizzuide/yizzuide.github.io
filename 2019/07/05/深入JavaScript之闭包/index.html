@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>Category: 前端开发 | 梦路人的博客</title>
+  <title>深入JavaScript之闭包 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java、移动开发、前端技术分享博客">
-<meta name="keywords" content="梦路人的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="梦路人的博客">
-<meta property="og:url" content="https://yizzuide.github.io/categories/前端开发/page/2/index.html">
+  <meta name="description" content="在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个fade函数，内部有level变量，然后创建内部函数step，通过这个内部函数访问level变量，可以让状态数据不丢失实现页面淡入的效果。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入JavaScript之闭包">
+<meta property="og:url" content="https://yizzuide.github.io/2019/07/05/深入JavaScript之闭包/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="Java、移动开发、前端技术分享博客">
+<meta property="og:description" content="在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个fade函数，内部有level变量，然后创建内部函数step，通过这个内部函数访问level变量，可以让状态数据不丢失实现页面淡入的效果。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-05T08:16:27.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦路人的博客">
-<meta name="twitter:description" content="Java、移动开发、前端技术分享博客">
+<meta name="twitter:title" content="深入JavaScript之闭包">
+<meta name="twitter:description" content="在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个fade函数，内部有level变量，然后创建内部函数step，通过这个内部函数访问level变量，可以让状态数据不丢失实现页面淡入的效果。">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -166,52 +167,83 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-深入JavaScript之闭包" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/14/CSS解惑之子盒子垂直外边距塌陷问题/" class="archive-article-date">
-  	<time datetime="2017-06-14T02:46:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/14/CSS解惑之子盒子垂直外边距塌陷问题/">CSS解惑之子盒子垂直外边距塌陷问题</a>
+    <h1 class="article-title" itemprop="name">
+      深入JavaScript之闭包
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/07/05/深入JavaScript之闭包/" class="archive-article-date">
+  	<time datetime="2019-07-05T13:05:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个<code>fade</code>函数，内部有<code>level</code>变量，然后创建内部函数<code>step</code>，通过这个内部函数访问<code>level</code>变量，可以让状态数据不丢失实现页面淡入的效果。</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fade = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> level = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 内部函数</span></span><br><span class="line">    <span class="keyword">var</span> step = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> hex = level.toString(<span class="number">16</span>);</span><br><span class="line">        node.style.backgroundColor = <span class="string">'#FFFF'</span> + hex + hex;</span><br><span class="line">        <span class="keyword">if</span> (level &lt; <span class="number">15</span>) &#123;</span><br><span class="line">            level += <span class="number">1</span>;</span><br><span class="line">            setTimeout(step, <span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    setTimeout(step, <span class="number">100</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 需要放在浏览器环境中运行</span></span><br><span class="line">fade(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
+<p>下面来看一个使用错误的例子，让一个函数直接赋值给DOM节点的事件处理是错误的方式，当你在这个节点上点击，想像中弹窗会显示当前节点数，但是总是显示节点总数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add_the_handlers = <span class="function"><span class="keyword">function</span> (<span class="params">nodes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nodes.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">        nodes[i].onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            alert(i);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+<p>要避免在循环中创建函数。它可能浪费计算资源，并且会造成混乱感觉，就像我们看见的错误的例子。我们可以通过在循环外面先创建<code>helper</code>函数来避免混乱与误解，再向这个函数传递并绑定到当前<code>i</code>的值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add_the_handlers = <span class="function"><span class="keyword">function</span> (<span class="params">nodes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//使用闭包来保存每个i</span></span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            alert(i);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nodes.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">        nodes[i].onclick = helper(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">疑难解惑</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -224,73 +256,125 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/07/05/深入JavaScript之闭包/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/13/CSS解惑之垂直外边距合并问题/" class="archive-article-date">
-  	<time datetime="2017-06-13T11:48:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-13</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/05/深入JavaScript之实现DOM节点查找/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入JavaScript之实现DOM节点查找</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/13/CSS解惑之垂直外边距合并问题/">CSS解惑之垂直外边距合并问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">疑难解惑</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/categories/前端开发/">&laquo; Prev</a><a class="page-number" href="/categories/前端开发/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
+  <!-- Valine评论 -->
+  
+    <div class="valine_comment"></div>
+    <!--载入js，在</body>之前插入即可-->
+    <!--Leancloud 操作库:-->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <!--Valine 的核心代码库-->
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script>
+        new Valine({
+            // AV 对象来自上面引入av-min.js
+            av: AV, 
+            el: '.valine_comment',
+            emoticon_url: 'https://cloud.panjunwen.com/alu',
+            emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+            app_id: 'ltb80FkEFxoebyDujMM3Y47P-gzGzoHsz',
+            app_key: 'WHBsemwm9VajU9MVpcY1RibX',
+            placeholder: '有什么问题，欢迎留言指正与交流...'
+        });
+    </script>
   
 
 
@@ -314,10 +398,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
