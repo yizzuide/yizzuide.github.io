@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>Javascript原型链之最易理解分析 | 梦路人的博客</title>
+  <title>Archives: 2019/7 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="注：在本文中把xx.prototype引用的对象称为原型对象, Object、Function等称为函数类型对象，[]、{}、function(){}、12等称为实例对象。  我们知道Javascript是基于原型的函数式的面向对象语言，基中的原型、函数式是Javascript与Java等类似语言不同的地方，而Javascript又是动态的解释性脚本语言，所以语法上比较松散，可以满足快速开发并在">
-<meta name="keywords" content="javascript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Javascript原型链之最易理解分析">
-<meta property="og:url" content="https://yizzuide.github.io/2019/06/14/Javascript原型链之最易理解分析/index.html">
+  <meta name="description" content="Java、移动开发、前端技术分享博客">
+<meta name="keywords" content="梦路人的博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="梦路人的博客">
+<meta property="og:url" content="https://yizzuide.github.io/archives/2019/07/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="注：在本文中把xx.prototype引用的对象称为原型对象, Object、Function等称为函数类型对象，[]、{}、function(){}、12等称为实例对象。  我们知道Javascript是基于原型的函数式的面向对象语言，基中的原型、函数式是Javascript与Java等类似语言不同的地方，而Javascript又是动态的解释性脚本语言，所以语法上比较松散，可以满足快速开发并在">
+<meta property="og:description" content="Java、移动开发、前端技术分享博客">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-15T03:41:07.001Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript原型链之最易理解分析">
-<meta name="twitter:description" content="注：在本文中把xx.prototype引用的对象称为原型对象, Object、Function等称为函数类型对象，[]、{}、function(){}、12等称为实例对象。  我们知道Javascript是基于原型的函数式的面向对象语言，基中的原型、函数式是Javascript与Java等类似语言不同的地方，而Javascript又是动态的解释性脚本语言，所以语法上比较松散，可以满足快速开发并在">
+<meta name="twitter:title" content="梦路人的博客">
+<meta name="twitter:description" content="Java、移动开发、前端技术分享博客">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -167,95 +166,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Javascript原型链之最易理解分析" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Javascript原型链之最易理解分析
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/07/05/深入JavaScript之实现DOM节点查找/" class="archive-article-date">
+  	<time datetime="2019-07-05T12:22:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/07/05/深入JavaScript之实现DOM节点查找/">深入JavaScript之实现DOM节点查找</a>
     </h1>
   
 
-        
-        <a href="/2019/06/14/Javascript原型链之最易理解分析/" class="archive-article-date">
-  	<time datetime="2019-06-14T12:12:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>注：在本文中把<code>xx.prototype</code>引用的对象称为<code>原型对象</code>, <code>Object</code>、<code>Function</code>等称为函数类型对象，<code>[]</code>、<code>{}</code>、<code>function(){}</code>、<code>12</code>等称为实例对象。</p>
-</blockquote>
-<p>我们知道Javascript是基于原型的函数式的面向对象语言，基中的<strong>原型</strong>、<strong>函数式</strong>是Javascript与Java等类似语言不同的地方，而Javascript又是动态的解释性脚本语言，所以语法上比较松散，可以满足快速开发并在网页里嵌入执行，由于是非静态类型语言，所能开发者入门起来相对简单，但想要深入Javascript学习就需要掌握好原型（prototype）的使用。</p>
-<a id="more"></a>
-<p>熟悉Java的同学都知道<code>Object</code>是所有类的基类，但是Javascript没有Class，那Javascript有没有类似的概念？很多人都会想到Javascript中也有<code>Object</code>，就认为这就是根对象，那我们先来看一个著名的鸡生蛋、蛋生鸡问题：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>What? 哪个才是根对象呢？为了方面理解，下面看一段伪代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开天辟地</span></span><br><span class="line"><span class="keyword">var</span> ObjectPrototype = create_obj();</span><br><span class="line"> <span class="comment">// FunctionPrototype是Object类型的，因为其原型是ObjectPrototype</span></span><br><span class="line"><span class="keyword">var</span> FunctionPrototype = create_func( ObjectPrototype );</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">Function</span> = create_func_instance( FunctionPrototype );</span><br><span class="line"> <span class="comment">// Function是Function类型的，也是Object类型的</span></span><br><span class="line"><span class="built_in">Function</span>.prototype = FunctionPrototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">Object</span> =  create_obj_instance( FunctionPrototype );</span><br><span class="line"> <span class="comment">// Object是Function类型的，也是Object类型的</span></span><br><span class="line"><span class="built_in">Object</span>.prototype = ObjectPrototype;</span><br></pre></td></tr></table></figure></p>
-<p>从以上伪代码可以看出，<code>Object</code>对象的原型链上有<code>Function.prototype</code>和<code>Object.prototype</code>，下面是原型链指向：</p>
-<pre><code>function对象(Function、Object等) -&gt; Function.prototype -&gt; Object.prototype
-</code></pre><p>下面是系统定义的函数类型对象的构造源（<code>__proto__</code>属性引用着构造来源对象）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__); <span class="comment">// null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">// true，Array.prototype构造自Object.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.__proto__ === <span class="built_in">Function</span>.prototype.__proto__); <span class="comment">// true，Array.prototype和Function.prototype指向的原型相同</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.prototype.__proto__ ===  <span class="built_in">Object</span>.prototype); <span class="comment">// true，其它类型的原型都是构造自Object.prototype</span></span><br></pre></td></tr></table></figure>
-<p>由以上可以看到，系统定义的<code>Object</code>、<code>Array</code>、<code>Function</code>等都是由<code>Function.prototype</code>引用的对象构造出来的，也就是上面伪代码的<code>FunctionPrototype</code>，而<code>Object.prototype</code>（上面伪代码的<code>ObjectPrototype</code>）的构造源为<code>null</code>，所以<code>Object.prototype</code>就是根对象。</p>
-<p>下面看一下实例对象的构造源：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log((<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;).__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.__proto__ === <span class="built_in">Function</span>.prototype);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(&#123;&#125;.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log([].__proto__ === <span class="built_in">Array</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log([].prototype); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log([].__proto__.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>由以上来分析，不同的实例对象的构造源类型也是不同的，实例对象的<code>prototype</code>属性一般为<code>undefined</code>，而系统定义的函数对象类型（如：<code>Object</code>、<code>Function</code>、<code>Array</code>、<code>Number</code>）的<code>prototype</code>一般会引用着原型对象，用于<code>new</code>构建出不同的实例类型对象。</p>
-<p>对于对象的属性查找，会通过<code>__proto__</code>向上查找构造源对象的属性，直到在<code>Object.prototype</code>根对象上找到到为止。</p>
-<p>总结：函数对象类型上引用不同的<code>prototype</code>，那么基于这个类型创建的实例就拥有不同的类型，如：<code>Array</code>的实例<code>[]</code>，<code>Array.prototype</code>原型对象拥有操作数组的属性和方法。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -268,135 +220,66 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/06/14/Javascript原型链之最易理解分析/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2019/06/15/MySQL优化之使用order by导致的慢查询/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL优化之使用order by导致的慢查询
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/05/24/Spring MVC使用AOP实现拦截4xx错误/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring MVC使用AOP实现拦截4xx错误</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/07/05/深入JavaScript之扩展类型的功能/" class="archive-article-date">
+  	<time datetime="2019-07-05T12:05:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/07/05/深入JavaScript之扩展类型的功能/">深入JavaScript之扩展类型的功能</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
   
 
-  
-
-  
-
-  <!-- Valine评论 -->
-  
-    <div class="valine_comment"></div>
-    <!--载入js，在</body>之前插入即可-->
-    <!--Leancloud 操作库:-->
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <!--Valine 的核心代码库-->
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script>
-        new Valine({
-            // AV 对象来自上面引入av-min.js
-            av: AV, 
-            el: '.valine_comment',
-            emoticon_url: 'https://cloud.panjunwen.com/alu',
-            emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
-            app_id: 'ltb80FkEFxoebyDujMM3Y47P-gzGzoHsz',
-            app_key: 'WHBsemwm9VajU9MVpcY1RibX',
-            placeholder: '有什么问题，欢迎留言指正与交流...'
-        });
-    </script>
-  
+    
 
 
           </div>
@@ -419,8 +302,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -501,7 +384,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +396,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">

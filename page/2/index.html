@@ -168,6 +168,291 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Spring MVC使用Jackson之从业务总结的技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/">Spring MVC使用Jackson之从业务总结的技巧</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/" class="archive-article-date">
+  	<time datetime="2019-05-23T12:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SpringBoot工程里的控制器在使用<code>@ResponseBody</code>时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。</p>
+<h2 id="自定义输出格式"><a href="#自定义输出格式" class="headerlink" title="自定义输出格式"></a>自定义输出格式</h2><p>自定义字段名：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonProperty</span>(<span class="string">"error_code"</span>)</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> errorCode;</span><br><span class="line"><span class="meta">@JsonProperty</span>(<span class="string">"error_message"</span>)</span><br><span class="line"><span class="keyword">private</span> String errorMessage;</span><br></pre></td></tr></table></figure></p>
+        
+          <a class="article-more-a" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Spring MVC请求返回400的解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/20/Spring MVC请求返回400的解决方案/">Spring MVC请求返回400的解决方案</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/20/Spring MVC请求返回400的解决方案/" class="archive-article-date">
+  	<time datetime="2019-05-20T06:45:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：</p>
+<ol>
+<li>请求方式是否匹配，如：POST</li>
+<li>是否要要求请求体，但是没有传</li>
+<li>URL参数是否匹配</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/05/20/Spring MVC请求返回400的解决方案/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/20/Spring MVC请求返回400的解决方案/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Idea搭建基于Gradle的Java Web工程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/">Idea搭建基于Gradle的JavaWeb工程</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/" class="archive-article-date">
+  	<time datetime="2018-07-27T10:48:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、配置环境："><a href="#一、配置环境：" class="headerlink" title="一、配置环境："></a>一、配置环境：</h2><p>除IntelliJ IDEA 在后期版本上稍有不同外，其它的版本可自行搭配：</p>
+<ul>
+<li>IntelliJ IDEA 2018.2</li>
+<li>Tomcat 8.5.32</li>
+<li>JDK 1.8.0_51</li>
+<li>Mac操作系统</li>
+</ul>
+        
+          <a class="article-more-a" href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-现在的很远" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -802,94 +1087,9 @@
 
 
   
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/14/我的第一篇博客/">我的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/14/我的第一篇博客/" class="archive-article-date">
-  	<time datetime="2016-09-14T08:26:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>中秋快乐！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">first</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂谈//" class="article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/14/我的第一篇博客/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -996,7 +1196,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1008,11 +1208,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
