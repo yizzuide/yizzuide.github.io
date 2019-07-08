@@ -608,19 +608,19 @@
 
 
   
-    <article id="post-JavaScript技巧之按自定义顺序显示属性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JavaScript技巧之处理对象属性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/">JavaScript技巧之按自定义顺序显示属性</a>
+      <a class="article-title" href="/2019/06/28/JavaScript技巧之处理对象属性/">JavaScript技巧之处理对象属性</a>
     </h1>
   
 
         
-        <a href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/" class="archive-article-date">
+        <a href="/2019/06/28/JavaScript技巧之处理对象属性/" class="archive-article-date">
   	<time datetime="2019-06-28T12:48:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
 </a>
         
@@ -628,8 +628,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用<code>for-in</code>来遍历，而是创建一个数组包含正确顺序的属性名。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> another_stooge = &#123;</span><br><span class="line">    <span class="string">'first-name'</span>: <span class="string">"Person"</span>,</span><br><span class="line">    <span class="string">'middle-name'</span>: <span class="string">"9"</span>,</span><br><span class="line">    <span class="string">'last-name'</span>: <span class="string">"^"</span>,</span><br><span class="line">    <span class="string">'profession'</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> properties = [</span><br><span class="line">    <span class="string">'first-name'</span>,</span><br><span class="line">    <span class="string">'middle-name'</span>,</span><br><span class="line">    <span class="string">'last-name'</span>,</span><br><span class="line">    <span class="string">'profession'</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; properties.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> message = properties[i] + <span class="string">': '</span> + another_stooge[properties[i]];</span><br><span class="line">    <span class="built_in">console</span>.log(message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="按自定义顺序显示属性"><a href="#按自定义顺序显示属性" class="headerlink" title="按自定义顺序显示属性"></a>按自定义顺序显示属性</h2><p>由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用<code>for-in</code>来遍历，而是创建一个数组包含正确顺序的属性名。</p>
+        
+          <a class="article-more-a" href="/2019/06/28/JavaScript技巧之处理对象属性/#more">more >></a>
+        
       
 
       
@@ -663,7 +665,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/28/JavaScript技巧之处理对象属性/">展开全文 >></a>
         </p>
       
 
@@ -1158,15 +1160,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">

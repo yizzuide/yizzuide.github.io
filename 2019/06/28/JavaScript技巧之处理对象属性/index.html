@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>JavaScript技巧之按自定义顺序显示属性 | 梦路人的博客</title>
+  <title>JavaScript技巧之处理对象属性 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用for-in来遍历，而是创建一个数组包含正确顺序的属性名。 123456789101112131415161718var another_stooge = &amp;#123;    &apos;first-name&apos;: &quot;Person&quot;,    &apos;middle-name&apos;: &quot;9&quot;,    &apos;l">
+  <meta name="description" content="按自定义顺序显示属性由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用for-in来遍历，而是创建一个数组包含正确顺序的属性名。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript技巧之按自定义顺序显示属性">
-<meta property="og:url" content="https://yizzuide.github.io/2019/06/28/JavaScript技巧之按自定义顺序显示属性/index.html">
+<meta property="og:title" content="JavaScript技巧之处理对象属性">
+<meta property="og:url" content="https://yizzuide.github.io/2019/06/28/JavaScript技巧之处理对象属性/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用for-in来遍历，而是创建一个数组包含正确顺序的属性名。 123456789101112131415161718var another_stooge = &amp;#123;    &apos;first-name&apos;: &quot;Person&quot;,    &apos;middle-name&apos;: &quot;9&quot;,    &apos;l">
+<meta property="og:description" content="按自定义顺序显示属性由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用for-in来遍历，而是创建一个数组包含正确顺序的属性名。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-05T08:45:00.524Z">
+<meta property="og:updated_time" content="2019-07-08T09:36:29.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript技巧之按自定义顺序显示属性">
-<meta name="twitter:description" content="由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用for-in来遍历，而是创建一个数组包含正确顺序的属性名。 123456789101112131415161718var another_stooge = &amp;#123;    &apos;first-name&apos;: &quot;Person&quot;,    &apos;middle-name&apos;: &quot;9&quot;,    &apos;l">
+<meta name="twitter:title" content="JavaScript技巧之处理对象属性">
+<meta name="twitter:description" content="按自定义顺序显示属性由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用for-in来遍历，而是创建一个数组包含正确顺序的属性名。">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -167,19 +167,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaScript技巧之按自定义顺序显示属性" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JavaScript技巧之处理对象属性" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JavaScript技巧之按自定义顺序显示属性
+      JavaScript技巧之处理对象属性
     </h1>
   
 
         
-        <a href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/" class="archive-article-date">
+        <a href="/2019/06/28/JavaScript技巧之处理对象属性/" class="archive-article-date">
   	<time datetime="2019-06-28T12:48:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
 </a>
         
@@ -187,8 +187,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用<code>for-in</code>来遍历，而是创建一个数组包含正确顺序的属性名。</p>
+        <h2 id="按自定义顺序显示属性"><a href="#按自定义顺序显示属性" class="headerlink" title="按自定义顺序显示属性"></a>按自定义顺序显示属性</h2><p>由于不能保存对象属性的显示顺序，所能需要准备一个属性顺序列表。如果你想保证属性的显示是按照你要求的顺序，那就最好避免使用<code>for-in</code>来遍历，而是创建一个数组包含正确顺序的属性名。</p>
+<a id="more"></a>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> another_stooge = &#123;</span><br><span class="line">    <span class="string">'first-name'</span>: <span class="string">"Person"</span>,</span><br><span class="line">    <span class="string">'middle-name'</span>: <span class="string">"9"</span>,</span><br><span class="line">    <span class="string">'last-name'</span>: <span class="string">"^"</span>,</span><br><span class="line">    <span class="string">'profession'</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> properties = [</span><br><span class="line">    <span class="string">'first-name'</span>,</span><br><span class="line">    <span class="string">'middle-name'</span>,</span><br><span class="line">    <span class="string">'last-name'</span>,</span><br><span class="line">    <span class="string">'profession'</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; properties.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> message = properties[i] + <span class="string">': '</span> + another_stooge[properties[i]];</span><br><span class="line">    <span class="built_in">console</span>.log(message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="大量参数传递优化"><a href="#大量参数传递优化" class="headerlink" title="大量参数传递优化"></a>大量参数传递优化</h2><p>在构造器中可以需要传递大量参数的问题，这可能让人烦心的是很难记得参数传递的顺序。所以，更友好的方式是一个构造器接收一个有针对性的对象，这个对象包含了构造器要求传入的规定属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多参数传递</span></span><br><span class="line"><span class="keyword">var</span> myObject = maker(f, l, m, c, s);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 改为对象包装属性</span></span><br><span class="line"><span class="keyword">var</span> myObject = maker(&#123;</span><br><span class="line">     first: f,</span><br><span class="line">     last: l,</span><br><span class="line">     middle: m,</span><br><span class="line">     state: s,</span><br><span class="line">     city: c</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -299,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/06/28/JavaScript技巧之按自定义顺序显示属性/" alt="微信分享二维码">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/06/28/JavaScript技巧之处理对象属性/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -476,15 +480,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
