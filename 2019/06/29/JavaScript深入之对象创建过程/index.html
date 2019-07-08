@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>JavaScript深入之闭包 | 梦路人的博客</title>
+  <title>JavaScript深入之对象创建过程 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个fade函数，内部有level变量，然后创建内部函数step，通过这个内部函数访问level变量，可以让状态数据不丢失实现页面淡入的效果。">
+  <meta name="description" content="JavaScript的原型本质是让人困惑的。它的原型链机制被一些费解的语法所掩盖，并且看起来很原始。不是让对象直接从其他对象继承，而是插入一个不必要的间接层，以便对象由构造函数生成。当一个函数对象被创建，Function函数构造器创建函数对象的代码类似这样：12// this为函数对象this.prototype = &amp;#123;constructor: this, ...other&amp;#125;;">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript深入之闭包">
-<meta property="og:url" content="https://yizzuide.github.io/2019/07/05/JavaScript深入之闭包/index.html">
+<meta property="og:title" content="JavaScript深入之对象创建过程">
+<meta property="og:url" content="https://yizzuide.github.io/2019/06/29/JavaScript深入之对象创建过程/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个fade函数，内部有level变量，然后创建内部函数step，通过这个内部函数访问level变量，可以让状态数据不丢失实现页面淡入的效果。">
+<meta property="og:description" content="JavaScript的原型本质是让人困惑的。它的原型链机制被一些费解的语法所掩盖，并且看起来很原始。不是让对象直接从其他对象继承，而是插入一个不必要的间接层，以便对象由构造函数生成。当一个函数对象被创建，Function函数构造器创建函数对象的代码类似这样：12// this为函数对象this.prototype = &amp;#123;constructor: this, ...other&amp;#125;;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-05T08:47:39.631Z">
+<meta property="og:updated_time" content="2019-07-08T08:59:56.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript深入之闭包">
-<meta name="twitter:description" content="在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个fade函数，内部有level变量，然后创建内部函数step，通过这个内部函数访问level变量，可以让状态数据不丢失实现页面淡入的效果。">
+<meta name="twitter:title" content="JavaScript深入之对象创建过程">
+<meta name="twitter:description" content="JavaScript的原型本质是让人困惑的。它的原型链机制被一些费解的语法所掩盖，并且看起来很原始。不是让对象直接从其他对象继承，而是插入一个不必要的间接层，以便对象由构造函数生成。当一个函数对象被创建，Function函数构造器创建函数对象的代码类似这样：12// this为函数对象this.prototype = &amp;#123;constructor: this, ...other&amp;#125;;">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -167,33 +167,30 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaScript深入之闭包" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JavaScript深入之对象创建过程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JavaScript深入之闭包
+      JavaScript深入之对象创建过程
     </h1>
   
 
         
-        <a href="/2019/07/05/JavaScript深入之闭包/" class="archive-article-date">
-  	<time datetime="2019-07-05T13:05:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+        <a href="/2019/06/29/JavaScript深入之对象创建过程/" class="archive-article-date">
+  	<time datetime="2019-06-29T06:33:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个<code>fade</code>函数，内部有<code>level</code>变量，然后创建内部函数<code>step</code>，通过这个内部函数访问<code>level</code>变量，可以让状态数据不丢失实现页面淡入的效果。</p>
+        <p>JavaScript的原型本质是让人困惑的。它的原型链机制被一些费解的语法所掩盖，并且看起来很原始。不是让对象直接从其他对象继承，而是插入一个不必要的间接层，以便对象由构造函数生成。当一个函数对象被创建，<code>Function</code>函数构造器创建函数对象的代码类似这样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this为函数对象</span></span><br><span class="line"><span class="keyword">this</span>.prototype = &#123;<span class="attr">constructor</span>: <span class="keyword">this</span>, ...other&#125;;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fade = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> level = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 内部函数</span></span><br><span class="line">    <span class="keyword">var</span> step = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> hex = level.toString(<span class="number">16</span>);</span><br><span class="line">        node.style.backgroundColor = <span class="string">'#FFFF'</span> + hex + hex;</span><br><span class="line">        <span class="keyword">if</span> (level &lt; <span class="number">15</span>) &#123;</span><br><span class="line">            level += <span class="number">1</span>;</span><br><span class="line">            setTimeout(step, <span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    setTimeout(step, <span class="number">100</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 需要放在浏览器环境中运行</span></span><br><span class="line">fade(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
-<p>下面来看一个使用错误的例子，让一个函数直接赋值给DOM节点的事件处理是错误的方式，当你在这个节点上点击，想像中弹窗会显示当前节点数，但是总是显示节点总数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add_the_handlers = <span class="function"><span class="keyword">function</span> (<span class="params">nodes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nodes.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">        nodes[i].onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            alert(i);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
-<p>要避免在循环中创建函数。它可能浪费计算资源，并且会造成混乱感觉，就像我们看见的错误的例子。我们可以通过在循环外面先创建<code>helper</code>函数来避免混乱与误解，再向这个函数传递并绑定到当前<code>i</code>的值。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add_the_handlers = <span class="function"><span class="keyword">function</span> (<span class="params">nodes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//使用闭包来保存每个i</span></span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            alert(i);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nodes.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">        nodes[i].onclick = helper(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当一个函数被<code>new</code>前缀的构造器模式调用时，这将改变函数执行的方式，我们通过仿造一个<code>new</code>方法，来看看内部的创建过程：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 让函数对象拥有方法扩展功能</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.method = <span class="function"><span class="keyword">function</span> (<span class="params">name, func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.prototype[name]) &#123;</span><br><span class="line">        <span class="keyword">this</span>.prototype[name] = func;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数对象扩展new方法</span></span><br><span class="line"><span class="built_in">Function</span>.method(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个新对象，继承自构造器的原型对象</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    Object.create的实现：</span></span><br><span class="line"><span class="comment">        Object.create = function (o) &#123;</span></span><br><span class="line"><span class="comment">            var F = function () &#123;&#125;;</span></span><br><span class="line"><span class="comment">            F.prototype = o;</span></span><br><span class="line"><span class="comment">            return new F();</span></span><br><span class="line"><span class="comment">        &#125;;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.prototype);</span><br><span class="line">    <span class="comment">// 调用构造器，绑定’this‘到新的对象</span></span><br><span class="line">    <span class="keyword">var</span> other = <span class="keyword">this</span>.apply(that, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 如果原函数返回的不是一个对象，替换为新的创建对象</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">typeof</span> other === <span class="string">'object'</span> &amp;&amp; other) || that;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Mammal</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.do = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'go do someThing……'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展原型对象的属性（内部构造：Mammal.prototype.__proto__ === Object.prototype)</span></span><br><span class="line">Mammal.prototype.get_name = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在，我们创建实例</span></span><br><span class="line"><span class="keyword">var</span> myMammal = Mammal.new(<span class="string">'Herb the Mammal'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(myMammal.get_name()); <span class="comment">// 'Herb the Mammal'</span></span><br></pre></td></tr></table></figure></p>
+
       
 
       
@@ -304,7 +301,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/07/05/JavaScript深入之闭包/" alt="微信分享二维码">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/06/29/JavaScript深入之对象创建过程/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -318,9 +315,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/07/05/JavaScript实现之DOM节点查找/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JavaScript实现之DOM节点查找
+        
+      </div>
+    </a>
   
-    <a href="/2019/07/05/JavaScript实现之DOM节点查找/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript实现之DOM节点查找</div>
+  
+    <a href="/2019/06/29/JavaScript深入之闭包/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript深入之闭包</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -168,93 +168,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-JavaScript深入之闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/05/JavaScript深入之闭包/">JavaScript深入之闭包</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/05/JavaScript深入之闭包/" class="archive-article-date">
-  	<time datetime="2019-07-05T13:05:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个<code>fade</code>函数，内部有<code>level</code>变量，然后创建内部函数<code>step</code>，通过这个内部函数访问<code>level</code>变量，可以让状态数据不丢失实现页面淡入的效果。</p>
-        
-          <a class="article-more-a" href="/2019/07/05/JavaScript深入之闭包/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/05/JavaScript深入之闭包/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-JavaScript实现之DOM节点查找" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -342,29 +255,29 @@
 
 
   
-    <article id="post-JavaScript实现之扩展类型的功能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JavaScript深入之对象创建过程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/05/JavaScript实现之扩展类型的功能/">JavaScript实现之扩展类型的功能</a>
+      <a class="article-title" href="/2019/06/29/JavaScript深入之对象创建过程/">JavaScript深入之对象创建过程</a>
     </h1>
   
 
         
-        <a href="/2019/07/05/JavaScript实现之扩展类型的功能/" class="archive-article-date">
-  	<time datetime="2019-07-05T12:05:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+        <a href="/2019/06/29/JavaScript深入之对象创建过程/" class="archive-article-date">
+  	<time datetime="2019-06-29T06:33:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>可以通过扩展<code>Function.prototype</code>来添加一个名叫<code>method</code>的方法，我们就不需要再通过<code>prototype</code>属性来实现了，以此来隐藏不直观的方式。由于基本类型的原型都是公开的结构，一个防御性的技术是我们希望这个<code>method</code>方法内部可以推测这个扩展的类型是否已经拥有这个方法了，从而不再重复添加。</p>
+        <p>JavaScript的原型本质是让人困惑的。它的原型链机制被一些费解的语法所掩盖，并且看起来很原始。不是让对象直接从其他对象继承，而是插入一个不必要的间接层，以便对象由构造函数生成。当一个函数对象被创建，<code>Function</code>函数构造器创建函数对象的代码类似这样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this为函数对象</span></span><br><span class="line"><span class="keyword">this</span>.prototype = &#123;<span class="attr">constructor</span>: <span class="keyword">this</span>, ...other&#125;;</span><br></pre></td></tr></table></figure></p>
         
-          <a class="article-more-a" href="/2019/07/05/JavaScript实现之扩展类型的功能/#more">more >></a>
+          <a class="article-more-a" href="/2019/06/29/JavaScript深入之对象创建过程/#more">more >></a>
         
       
 
@@ -399,7 +312,94 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/05/JavaScript实现之扩展类型的功能/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/29/JavaScript深入之对象创建过程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JavaScript深入之闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/29/JavaScript深入之闭包/">JavaScript深入之闭包</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/29/JavaScript深入之闭包/" class="archive-article-date">
+  	<time datetime="2019-06-29T05:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在JavaScript中，通过在一个函数内创建一个内置函数，可以实现保存外层函数的上下文数据，从而实现闭包的。下面创建一个<code>fade</code>函数，内部有<code>level</code>变量，然后创建内部函数<code>step</code>，通过这个内部函数访问<code>level</code>变量，可以让状态数据不丢失实现页面淡入的效果。</p>
+        
+          <a class="article-more-a" href="/2019/06/29/JavaScript深入之闭包/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/29/JavaScript深入之闭包/">展开全文 >></a>
         </p>
       
 
@@ -693,6 +693,93 @@
 
 
   
+    <article id="post-JavaScript实现之扩展类型的功能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/28/JavaScript实现之扩展类型的功能/">JavaScript实现之扩展类型的功能</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/28/JavaScript实现之扩展类型的功能/" class="archive-article-date">
+  	<time datetime="2019-06-28T05:18:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>可以通过扩展<code>Function.prototype</code>来添加一个名叫<code>method</code>的方法，我们就不需要再通过<code>prototype</code>属性来实现了，以此来隐藏不直观的方式。由于基本类型的原型都是公开的结构，一个防御性的技术是我们希望这个<code>method</code>方法内部可以推测这个扩展的类型是否已经拥有这个方法了，从而不再重复添加。</p>
+        
+          <a class="article-more-a" href="/2019/06/28/JavaScript实现之扩展类型的功能/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/28/JavaScript实现之扩展类型的功能/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-再拾JavaScript之语言精粹" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -941,98 +1028,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/06/16/设计一个API去重、次数限制组合器（一）/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MySQL优化之使用order by导致的慢查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/">MySQL优化之使用order by导致的慢查询</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/15/MySQL优化之使用order by导致的慢查询/" class="archive-article-date">
-  	<time datetime="2019-06-15T13:25:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相信很多开发者在项目开发中都只考虑功能实现，没有过多问题考虑执行效率问，今天从百忙的业务开发中解脱出来，终于可以抽时间优化一个业务导致慢查询的问题了，本篇文章从分析慢查询引起的原因到采用的优化方案全面讲解。</p>
-<p>项目中的业务是根据某个用户查询所有创建的进件后的所有订单，其中创建创建时间要倒序，并按照分页查询，以下是查询语句（省略了一些业务字段，但不影响阅读）：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_id, user_id, platform_product_id, username, phone, <span class="string">`status`</span>, close_status, create_at, update_at <span class="keyword">FROM</span> sd_order <span class="keyword">WHERE</span> user_id = <span class="number">26</span> <span class="keyword">and</span> <span class="string">`status`</span> &gt;= <span class="number">30</span> <span class="keyword">order</span> <span class="keyword">by</span> create_at <span class="keyword">DESC</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/">展开全文 >></a>
         </p>
       
 

@@ -168,6 +168,98 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MySQL优化之使用order by导致的慢查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/">MySQL优化之使用order by导致的慢查询</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/15/MySQL优化之使用order by导致的慢查询/" class="archive-article-date">
+  	<time datetime="2019-06-15T13:25:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相信很多开发者在项目开发中都只考虑功能实现，没有过多问题考虑执行效率问，今天从百忙的业务开发中解脱出来，终于可以抽时间优化一个业务导致慢查询的问题了，本篇文章从分析慢查询引起的原因到采用的优化方案全面讲解。</p>
+<p>项目中的业务是根据某个用户查询所有创建的进件后的所有订单，其中创建创建时间要倒序，并按照分页查询，以下是查询语句（省略了一些业务字段，但不影响阅读）：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_id, user_id, platform_product_id, username, phone, <span class="string">`status`</span>, close_status, create_at, update_at <span class="keyword">FROM</span> sd_order <span class="keyword">WHERE</span> user_id = <span class="number">26</span> <span class="keyword">and</span> <span class="string">`status`</span> &gt;= <span class="number">30</span> <span class="keyword">order</span> <span class="keyword">by</span> create_at <span class="keyword">DESC</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+        
+          <a class="article-more-a" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/15/MySQL优化之使用order by导致的慢查询/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JavaScript原型链之最易理解分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -971,97 +1063,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/06/13/CSS解惑之垂直外边距合并问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PHPStorm配置连接Mysql数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/06/PHPStorm配置连接Mysql数据库/">PHPStorm配置连接Mysql数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/06/PHPStorm配置连接Mysql数据库/" class="archive-article-date">
-  	<time datetime="2017-03-06T12:17:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>默认情况下，PHPStorm安装后，是没有自带Mysql驱动的，有人说按照提示会自动下载安装，而我安装的版本2016.3.2不会下载，点了下载也没有用，会出现无数直线递增的查找驱动的后台任务，不知道这个是不是一个bug?? 这里说说手动安装的方法。</p>
-        
-          <a class="article-more-a" href="/2017/03/06/PHPStorm配置连接Mysql数据库/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境配置</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/06/PHPStorm配置连接Mysql数据库/">展开全文 >></a>
         </p>
       
 

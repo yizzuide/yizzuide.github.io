@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
-  <title>Archives: 2019/6 | 梦路人的博客</title>
+  <title>JavaScript实现之扩展类型的功能 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java、移动开发、前端技术分享博客">
-<meta name="keywords" content="梦路人的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="梦路人的博客">
-<meta property="og:url" content="https://yizzuide.github.io/archives/2019/06/index.html">
+  <meta name="description" content="可以通过扩展Function.prototype来添加一个名叫method的方法，我们就不需要再通过prototype属性来实现了，以此来隐藏不直观的方式。由于基本类型的原型都是公开的结构，一个防御性的技术是我们希望这个method方法内部可以推测这个扩展的类型是否已经拥有这个方法了，从而不再重复添加。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript实现之扩展类型的功能">
+<meta property="og:url" content="https://yizzuide.github.io/2019/06/28/JavaScript实现之扩展类型的功能/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="Java、移动开发、前端技术分享博客">
+<meta property="og:description" content="可以通过扩展Function.prototype来添加一个名叫method的方法，我们就不需要再通过prototype属性来实现了，以此来隐藏不直观的方式。由于基本类型的原型都是公开的结构，一个防御性的技术是我们希望这个method方法内部可以推测这个扩展的类型是否已经拥有这个方法了，从而不再重复添加。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T08:57:34.306Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦路人的博客">
-<meta name="twitter:description" content="Java、移动开发、前端技术分享博客">
+<meta name="twitter:title" content="JavaScript实现之扩展类型的功能">
+<meta name="twitter:description" content="可以通过扩展Function.prototype来添加一个名叫method的方法，我们就不需要再通过prototype属性来实现了，以此来隐藏不直观的方式。由于基本类型的原型都是公开的结构，一个防御性的技术是我们希望这个method方法内部可以推测这个扩展的类型是否已经拥有这个方法了，从而不再重复添加。">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -166,36 +167,72 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JavaScript实现之扩展类型的功能" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript实现之扩展类型的功能
+    </h1>
+  
+
+        
+        <a href="/2019/06/28/JavaScript实现之扩展类型的功能/" class="archive-article-date">
+  	<time datetime="2019-06-28T05:18:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>可以通过扩展<code>Function.prototype</code>来添加一个名叫<code>method</code>的方法，我们就不需要再通过<code>prototype</code>属性来实现了，以此来隐藏不直观的方式。由于基本类型的原型都是公开的结构，一个防御性的技术是我们希望这个<code>method</code>方法内部可以推测这个扩展的类型是否已经拥有这个方法了，从而不再重复添加。</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Function.prototype是创造函数类型对象（Object、Function、Number、Array、String等）的原型对象，所以在它上面的扩展直接影响到所有函数类型对象及function实例对象</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.method = <span class="function"><span class="keyword">function</span> (<span class="params">name, func</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// this为函数类型对象或function实例对象</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.prototype[name]) &#123;</span><br><span class="line">        <span class="keyword">this</span>.prototype[name] = func;</span><br><span class="line">        <span class="comment">// 作为链表返回</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们知道JavaScript没有区分整数类型，所以有必要添加一个从<code>Number</code>类型抽出整数部分，我们通过添加<code>integer</code>方法到<code>Number.prototype</code>，让所有数字类型实例都拥有这个方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基于Number.prototype上的扩展</span></span><br><span class="line"><span class="built_in">Number</span>.method(<span class="string">'integer'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这个this为数字类型实例，如12，3.14</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>[<span class="keyword">this</span> &lt; <span class="number">0</span> ? <span class="string">'ceil'</span> : <span class="string">'floor'</span>](<span class="keyword">this</span>);</span><br><span class="line">&#125;).method(<span class="string">'random'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.random() + <span class="keyword">this</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="built_in">console</span>.log((<span class="number">-10</span> / <span class="number">3.0</span>).integer()); <span class="comment">// -3</span></span><br><span class="line"><span class="built_in">console</span>.log((<span class="number">5</span>).random()); <span class="comment">// 5.058055921537754</span></span><br></pre></td></tr></table></figure>
+<p>JavaScript ES5在字符串方面缺乏清除左右空白的函数，我们也可以这样扩展一下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.method(<span class="string">'trim'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// this为字符串实例</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/^\s+|\s+$/g</span>, <span class="string">''</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'"'</span> + <span class="string">" Is neat  "</span>.trim() + <span class="string">'"'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>下面实现一个字符串编码转换的功能，通过在<code>String</code>类型扩展一个<code>deentityify</code>方法。我们使用一次性调用函数通过<code>()</code>操作符，这个立即创建并返回<code>deentityify</code>方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.method(<span class="string">'deentityify'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 编码字符映射表（私有属性）</span></span><br><span class="line">    <span class="keyword">var</span> entity = &#123;</span><br><span class="line">        quot: <span class="string">'"'</span>,</span><br><span class="line">        lt: <span class="string">'&lt;'</span>,</span><br><span class="line">        gt: <span class="string">'&gt;'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 返回deentityify方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这里使用正则表达式作匹配以'&amp;‘开始，以';'结束的字符串，'[^&amp;;]'除了&amp;;之外的字符</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/&amp;([^&amp;;]+);/g</span>,</span><br><span class="line">            <span class="comment">// a为原字符串，b为正则匹配()中的值</span></span><br><span class="line">            <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> r = entity[b];</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">typeof</span> r === <span class="string">'string'</span> ? r : a;</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"&amp;lt;&amp;quot;"</span>.deentityify());</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/29/JavaScript深入之对象创建过程/" class="archive-article-date">
-  	<time datetime="2019-06-29T06:33:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/29/JavaScript深入之对象创建过程/">JavaScript深入之对象创建过程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -207,7 +244,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -220,220 +257,134 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://qr.liantu.com/api.php?text=https://yizzuide.github.io/2019/06/28/JavaScript实现之扩展类型的功能/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/29/JavaScript深入之闭包/" class="archive-article-date">
-  	<time datetime="2019-06-29T05:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JavaScript技巧之按自定义顺序显示属性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/27/再拾JavaScript之语言精粹/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">再拾JavaScript之语言精粹</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/29/JavaScript深入之闭包/">JavaScript深入之闭包</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/29/MySQL 5.7使用JSON类型之数组解析/" class="archive-article-date">
-  	<time datetime="2019-06-29T03:20:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/29/MySQL 5.7使用JSON类型之数组解析/">MySQL 5.7使用JSON类型之数组解析</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/29/JavaScript实现之增长序列号/" class="archive-article-date">
-  	<time datetime="2019-06-29T02:15:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/29/JavaScript实现之增长序列号/">JavaScript实现之增长序列号</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/" class="archive-article-date">
-  	<time datetime="2019-06-28T12:48:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/">JavaScript技巧之按自定义顺序显示属性</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端开发//" class="article-tag-list-link color5">前端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/06/page/2/">2</a><a class="page-number" href="/archives/2019/06/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/06/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
+  <!-- Valine评论 -->
+  
+    <div class="valine_comment"></div>
+    <!--载入js，在</body>之前插入即可-->
+    <!--Leancloud 操作库:-->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <!--Valine 的核心代码库-->
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script>
+        new Valine({
+            // AV 对象来自上面引入av-min.js
+            av: AV, 
+            el: '.valine_comment',
+            emoticon_url: 'https://cloud.panjunwen.com/alu',
+            emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+            app_id: 'ltb80FkEFxoebyDujMM3Y47P-gzGzoHsz',
+            app_key: 'WHBsemwm9VajU9MVpcY1RibX',
+            placeholder: '有什么问题，欢迎留言指正与交流...'
+        });
+    </script>
   
 
 
@@ -457,8 +408,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

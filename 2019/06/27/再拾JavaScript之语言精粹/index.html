@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="梦路人的博客">
 <meta property="og:description" content="目前正在回顾《JavaScript The Good Part》这本书里写的代码，这一本讲解了重要的语法特性，总结了该语言好的方面和不好的方面，这篇文章记录了其中关键要点。  看这篇文章前可以先看看：Javascript原型链之最易理解分析">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-05T08:59:57.494Z">
+<meta property="og:updated_time" content="2019-07-05T10:38:18.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="再拾JavaScript之语言精粹">
 <meta name="twitter:description" content="目前正在回顾《JavaScript The Good Part》这本书里写的代码，这一本讲解了重要的语法特性，总结了该语言好的方面和不好的方面，这篇文章记录了其中关键要点。  看这篇文章前可以先看看：Javascript原型链之最易理解分析">
@@ -206,7 +206,7 @@
 <li>构造器调用模式：当一个函数被<code>new</code>前缀调用，一个新的对象将会创建，并隐式关联到<code>Function.prototype</code>，<code>this</code>绑定到这个新创建的对象（构造器命名规范为Pascal方式）。</li>
 <li>由JavaScript是一个函数式面向对象语言，函数可以拥有方法（因为<code>Function.prototype</code>构造自<code>Object.prototype</code>，而定义的function构造自<code>Function.prototype</code>)。</li>
 <li>调用一个不带参数的函数并传入参数，被调用函数可以通过该函数的隐式数组对象<code>arguments</code>来获得传入的参数。</li>
-<li>apply调用模式：<code>apply</code>方法可以使用数组参数来调用函数，也能让我们选择<code>this</code>的值，它接收两个参数，第一个传入的是绑定<code>this</code>的值，第二个是数组类型的参数，<code>apply</code>方法可以使一个对象动态地功能扩展（将一个函数变为这个绑定对象的方法）。</li>
+<li>apply调用模式：<code>apply</code>方法可以使用数组参数来调用函数，也能让我们选择<code>this</code>的值，它接收两个参数，第一个传入的是绑定<code>this</code>的值（如果传递为null，表式不绑定到’this’），第二个是数组类型的参数，<code>apply</code>方法可以使一个对象动态地功能扩展（将一个函数变为这个绑定对象的方法）。</li>
 <li>call调用模式：<code>call</code>作用与<code>apply</code>作用相同，不同的是<code>call</code>传递给函数的参数必须列举出来。</li>
 <li>函数的 <code>apply()</code> 和 <code>call()</code> 来自于<code>Function.prototype</code>。</li>
 <li>如果一个函数使用前缀<code>new</code>调用，并且<code>return</code>返回的不是一个<code>object</code>（如：<code>function</code>、<code>[]</code>、<code>{}</code>)，那么将返回<code>this</code>（创建新的对象{}）。</li>
@@ -214,6 +214,7 @@
 <li>JavaScript有函数域。意味着函数的参数和定义的局部变量对外部不可见，并且函数内定义在任何地方定义的变量，在该函数任意地方都可见（也就是说域中定义的变量会被提升定义到顶部，只是赋值操作还是原位置）。在很多现代语言中都推荐变量定义越晚越好，但在JavaScript中这是一个不好的使用方式，因为它缺乏块域（如：if、for内定义的变量对外部可见），所以最好定义所有变量到函数体的最开始执行位置。</li>
 <li>一个有意思的个例是内部函数比外部函数拥有更长的生命周期，这是因为函数有能力访问创建它的上下文，这就叫闭包。</li>
 <li>一个模块通用模式就是一个函数定义了私有属性和函数，并且创建并返回一个特权的函数用于访问内部数据。</li>
+<li>使用<code>Array.prototype.slice(arguments)</code>可以将函数隐藏参数对象转为数组。</li>
 </ol>
 
       
@@ -340,11 +341,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/06/28/JavaScript技巧之按自定义顺序显示属性/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/06/28/JavaScript实现之扩展类型的功能/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          JavaScript技巧之按自定义顺序显示属性
+          JavaScript实现之扩展类型的功能
         
       </div>
     </a>
