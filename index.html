@@ -168,6 +168,302 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Mybatis问题排查之count查询总是返回0" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/23/Mybatis问题排查之count查询总是返回0/">Mybatis问题排查之count查询总是返回0</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/23/Mybatis问题排查之count查询总是返回0/" class="archive-article-date">
+  	<time datetime="2019-08-23T12:18:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">FROM</span> <span class="string">`cl_borrow`</span> <span class="keyword">WHERE</span> state <span class="keyword">IN</span> (<span class="number">40</span>,<span class="number">41</span>) <span class="keyword">AND</span> user_id = <span class="string">'3267'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>结果为：</p>
+<table>
+<thead>
+<tr>
+<th><code>count(1)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>但是通过mybatis执行的sql返回总是0:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"finishCount"</span> <span class="attr">resultType</span>=<span class="string">"java.lang.Integer"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Long"</span>&gt;</span></span><br><span class="line">        SELECT count(1) FROM `order` </span><br><span class="line">        WHERE state IN (40,41) AND user_id = #&#123;userId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里来分析一下，这个<code>user_id</code>字段类型为bigint(20)，看上去好像没有什么问题，但如果执行条件如果是<code>0000000000000000xxxx = 3267</code>或者<code>xxxx            = 3267</code>，那肯定是返回false了，正因为我们的<code>user_id</code>字段值并不总是20位，所以最终值会用0来填充。</p>
+<p>好了，问题找到了，解决办法可以使用<code>TRIM</code>函数：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"finishCount"</span> <span class="attr">resultType</span>=<span class="string">"java.lang.Integer"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Long"</span>&gt;</span></span><br><span class="line">        SELECT count(1) FROM `order` </span><br><span class="line">        WHERE state IN (40,41) AND TRIM(user_id) = #&#123;userId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/23/Mybatis问题排查之count查询总是返回0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Spring循环依赖注入异常" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/05/Spring循环依赖注入异常/">Spring循环依赖注入异常</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/05/Spring循环依赖注入异常/" class="archive-article-date">
+  	<time datetime="2019-08-05T12:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天在工程添加新代码后，出现如下报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &apos;milkomedaConfig&apos;: Unsatisfied dependency expressed through field &apos;loanAPIList&apos;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;standardLoanAPI&apos;: Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;loanPlayground&apos;: Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;pillarExecutor&apos; defined in class path resource [cn/fintecher/pangolin/business/config/MilkomedaConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.github.yizzuide.milkomeda.pillar.PillarExecutor]: Circular reference involving containing bean &apos;milkomedaConfig&apos; - consider declaring the factory method as static for independence from its containing instance. Factory method &apos;pillarExecutor&apos; threw exception; nested exception is java.lang.NullPointerException</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)</span><br><span class="line">	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)</span><br><span class="line">	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)</span><br><span class="line">	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)</span><br><span class="line">	at cn.fintecher.pangolin.business.PangolinBusinessApplication.main(PangolinBusinessApplication.java:44)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)</span><br><span class="line">Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;standardLoanAPI&apos;: Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;loanPlayground&apos;: Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;pillarExecutor&apos; defined in class path resource [cn/fintecher/pangolin/business/config/MilkomedaConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.github.yizzuide.milkomeda.pillar.PillarExecutor]: Circular reference involving containing bean &apos;milkomedaConfig&apos; - consider declaring the factory method as static for independence from its containing instance. Factory method &apos;pillarExecutor&apos; threw exception; nested exception is java.lang.NullPointerException</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)</span><br><span class="line">	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1316)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1282)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1180)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1096)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)</span><br><span class="line">	... 22 common frames omitted</span><br><span class="line">Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;loanPlayground&apos;: Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;pillarExecutor&apos; defined in class path resource [cn/fintecher/pangolin/business/config/MilkomedaConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.github.yizzuide.milkomeda.pillar.PillarExecutor]: Circular reference involving containing bean &apos;milkomedaConfig&apos; - consider declaring the factory method as static for independence from its containing instance. Factory method &apos;pillarExecutor&apos; threw exception; nested exception is java.lang.NullPointerException</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)</span><br><span class="line">	... 36 common frames omitted</span><br><span class="line">Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;pillarExecutor&apos; defined in class path resource [cn/fintecher/pangolin/business/config/MilkomedaConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.github.yizzuide.milkomeda.pillar.PillarExecutor]: Circular reference involving containing bean &apos;milkomedaConfig&apos; - consider declaring the factory method as static for independence from its containing instance. Factory method &apos;pillarExecutor&apos; threw exception; nested exception is java.lang.NullPointerException</span><br><span class="line">	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)</span><br><span class="line">	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)</span><br><span class="line">	... 49 common frames omitted</span><br><span class="line">Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.github.yizzuide.milkomeda.pillar.PillarExecutor]: Circular reference involving containing bean &apos;milkomedaConfig&apos; - consider declaring the factory method as static for independence from its containing instance. Factory method &apos;pillarExecutor&apos; threw exception; nested exception is java.lang.NullPointerException</span><br><span class="line">	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)</span><br><span class="line">	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)</span><br><span class="line">	... 63 common frames omitted</span><br><span class="line">Caused by: java.lang.NullPointerException: null</span><br><span class="line">	at java.util.AbstractCollection.addAll(AbstractCollection.java:343)</span><br><span class="line">	at com.github.yizzuide.milkomeda.pillar.PillarExecutor.addPillarList(PillarExecutor.java:65)</span><br><span class="line">	at cn.fintecher.pangolin.business.config.MilkomedaConfig.pillarExecutor(MilkomedaConfig.java:31)</span><br><span class="line">	at cn.fintecher.pangolin.business.config.MilkomedaConfig$$EnhancerBySpringCGLIB$$e624387f.CGLIB$pillarExecutor$1(&lt;generated&gt;)</span><br><span class="line">	at cn.fintecher.pangolin.business.config.MilkomedaConfig$$EnhancerBySpringCGLIB$$e624387f$$FastClassBySpringCGLIB$$84d28a92.invoke(&lt;generated&gt;)</span><br><span class="line">	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)</span><br><span class="line">	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)</span><br><span class="line">	at cn.fintecher.pangolin.business.config.MilkomedaConfig$$EnhancerBySpringCGLIB$$e624387f.pillarExecutor(&lt;generated&gt;)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)</span><br><span class="line">	... 64 common frames omitted</span><br></pre></td></tr></table></figure></p>
+<p>报错中有如注册Bean，依赖关系如下：<br><code>LoanPlayground -&gt; PillarExecutor（在MilkomedaConfig配置类里） -&gt; LoanAPI -&gt; LoanPlayground</code></p>
+<p>MilkomedaConfig配置类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MilkomedaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;LoanAPI&lt;Map&lt;String, String&gt;, ResponseEntity&gt;&gt; loanAPIList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> PillarExecutor&lt;Map&lt;String, String&gt;, ResponseEntity&gt; pillarExecutor() &#123;</span><br><span class="line">        PillarExecutor&lt;Map&lt;String, String&gt;, ResponseEntity&gt; pillarExecutor = <span class="keyword">new</span> PillarExecutor&lt;&gt;();</span><br><span class="line">        pillarExecutor.addPillarList(loanAPIList);</span><br><span class="line">        <span class="keyword">return</span> pillarExecutor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从异常来看，最终是由于在注册LoanAPI组件时<code>loanAPIList</code>还是null，所以<code>pillarExecutor.addPillarList</code>调用报错了。</p>
+<p>将代码如下修改，就可以让Spring正常去处理这种循环依赖：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> PillarExecutor&lt;Map&lt;String, String&gt;, ResponseEntity&gt; pillarExecutor(<span class="meta">@Autowired</span> List&lt;LoanAPI&lt;Map&lt;String, String&gt;, ResponseEntity&gt;&gt; loanAPIList) &#123;</span><br><span class="line">    PillarExecutor&lt;Map&lt;String, String&gt;, ResponseEntity&gt; pillarExecutor = <span class="keyword">new</span> PillarExecutor&lt;&gt;();</span><br><span class="line">    pillarExecutor.addPillarList(loanAPIList);</span><br><span class="line">    <span class="keyword">return</span> pillarExecutor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解决思路是让<code>PillarExecutor</code>依赖的<code>LoanAPI</code>先注册，<code>LoanAPI</code>依赖的<code>LoanPlayground</code>改为延迟注入。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/05/Spring循环依赖注入异常/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringBoot启动时报重复注册的异常" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/30/SpringBoot启动时报重复注册的异常/">SpringBoot启动时报重复注册的异常</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/30/SpringBoot启动时报重复注册的异常/" class="archive-article-date">
+  	<time datetime="2019-07-30T11:27:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天启动一个SpringBoot应用时，报错如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.jmx.export.UnableToRegisterMBeanException: Unable to register MBean [com.github.tobato.fastdfs.conn.FdfsConnectionPool@2233d975] with key &apos;fdfsConnectionPool&apos;; nested exception is javax.management.InstanceAlreadyExistsException: MXBean already registered with name org.apache.commons.pool2:type=GenericKeyedObjectPool,name=pool</span><br><span class="line">	at org.springframework.jmx.export.MBeanExporter.registerBeanNameOrInstance(MBeanExporter.java:628)</span><br><span class="line">	at org.springframework.jmx.export.MBeanExporter.registerBeans(MBeanExporter.java:550)</span><br><span class="line">	at org.springframework.jmx.export.MBeanExporter.afterSingletonsInstantiated(MBeanExporter.java:432)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:781)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)</span><br><span class="line">	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)</span><br><span class="line">	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)</span><br><span class="line">	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)</span><br><span class="line">	at cn.fintecher.pangolin.file.PangolinFileApplication.main(PangolinFileApplication.java:70)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)</span><br><span class="line">Caused by: javax.management.InstanceAlreadyExistsException: MXBean already registered with name org.apache.commons.pool2:type=GenericKeyedObjectPool,name=pool</span><br><span class="line">	at com.sun.jmx.mbeanserver.MXBeanLookup.addReference(MXBeanLookup.java:151)</span><br><span class="line">	at com.sun.jmx.mbeanserver.MXBeanSupport.register(MXBeanSupport.java:160)</span><br><span class="line">	at com.sun.jmx.mbeanserver.MBeanSupport.preRegister2(MBeanSupport.java:173)</span><br><span class="line">	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:930)</span><br><span class="line">	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:900)</span><br><span class="line">	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:324)</span><br><span class="line">	at com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522)</span><br><span class="line">	at org.springframework.jmx.support.MBeanRegistrationSupport.doRegister(MBeanRegistrationSupport.java:195)</span><br><span class="line">	at org.springframework.jmx.export.MBeanExporter.registerBeanInstance(MBeanExporter.java:674)</span><br><span class="line">	at org.springframework.jmx.export.MBeanExporter.registerBeanNameOrInstance(MBeanExporter.java:618)</span><br><span class="line">	... 15 common frames omitted</span><br></pre></td></tr></table></figure></p>
+<p>从异常来看是fastdfs重复注册common-pool造成的重复注册异常，以下是解决方案：</p>
+<p>方式一（无效）：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    jmx:</span></span><br><span class="line"><span class="attr">        enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>方式二（无效）：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    jmx:</span></span><br><span class="line"><span class="attr">        default-domain:</span> <span class="string">应用名</span></span><br></pre></td></tr></table></figure></p>
+<p>方式三（简单粗暴）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableMBeanExport</span>(registration= RegistrationPolicy.IGNORE_EXISTING)</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/30/SpringBoot启动时报重复注册的异常/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MySQL 5.7使用JSON类型之数组解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -560,7 +856,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>注：在本文中把<code>xx.prototype</code>引用的对象称为<code>原型对象</code>, <code>Object</code>、<code>Function</code>等称为函数类型对象，<code>[]</code>、<code>{}</code>、<code>function(){}</code>、<code>12</code>等称为实例对象。</p>
+<p>注：在本文中把<code>xx.prototype</code>引用的对象称为<code>原型对象</code>, <code>Object</code>、<code>Function</code>等称为函数类型对象，<code>[]</code>、<code>{}</code>、<code>12</code>等称为实例对象。</p>
 </blockquote>
 <p>我们知道JavaScript是基于原型的函数式的面向对象语言，基中的<strong>原型</strong>、<strong>函数式</strong>是JavaScript与Java等类似语言不同的地方，而JavaScript又是动态的解释性脚本语言，所以语法上比较松散，可以满足快速开发并在网页里嵌入执行，由于是非静态类型语言，所能开发者入门起来相对简单，但想要深入JavaScript学习就需要掌握好原型（prototype）的使用。</p>
         
@@ -812,294 +1108,9 @@
 
 
   
-    <article id="post-Spring MVC使用Jackson之从业务总结的技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/">Spring MVC使用Jackson之从业务总结的技巧</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/" class="archive-article-date">
-  	<time datetime="2019-05-23T12:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SpringBoot工程里的控制器在使用<code>@ResponseBody</code>时默认会使用Jackson有解析响应体的数据，这也是Spring MVC推荐使用的JSON解析库，这些天天使用的功能注解这里不多介绍，下面介绍一下使用较少或其它文章未提到的用法。</p>
-<h2 id="自定义输出格式"><a href="#自定义输出格式" class="headerlink" title="自定义输出格式"></a>自定义输出格式</h2><p>自定义字段名：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonProperty</span>(<span class="string">"error_code"</span>)</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> errorCode;</span><br><span class="line"><span class="meta">@JsonProperty</span>(<span class="string">"error_message"</span>)</span><br><span class="line"><span class="keyword">private</span> String errorMessage;</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/Spring MVC使用Jackson之从业务总结的技巧/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring MVC请求返回400的解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/20/Spring MVC请求返回400的解决方案/">Spring MVC请求返回400的解决方案</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/20/Spring MVC请求返回400的解决方案/" class="archive-article-date">
-  	<time datetime="2019-05-20T06:45:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当我们在请求映射方法打了断点，测试请求时一直无法进入且返回400情况下，使用以下方式排查：</p>
-<ol>
-<li>请求方式是否匹配，如：POST</li>
-<li>是否要要求请求体，但是没有传</li>
-<li>URL参数是否匹配</li>
-</ol>
-        
-          <a class="article-more-a" href="/2019/05/20/Spring MVC请求返回400的解决方案/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/20/Spring MVC请求返回400的解决方案/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Idea搭建基于Gradle的Java Web工程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/">Idea搭建基于Gradle的JavaWeb工程</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/" class="archive-article-date">
-  	<time datetime="2018-07-27T10:48:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、配置环境："><a href="#一、配置环境：" class="headerlink" title="一、配置环境："></a>一、配置环境：</h2><p>除IntelliJ IDEA 在后期版本上稍有不同外，其它的版本可自行搭配：</p>
-<ul>
-<li>IntelliJ IDEA 2018.2</li>
-<li>Tomcat 8.5.32</li>
-<li>JDK 1.8.0_51</li>
-<li>Mac操作系统</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境配置</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端开发//" class="article-tag-list-link color5">后端开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/27/Idea搭建基于Gradle的Java Web工程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1198,15 +1209,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1218,11 +1229,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,6 +1250,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">first</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">

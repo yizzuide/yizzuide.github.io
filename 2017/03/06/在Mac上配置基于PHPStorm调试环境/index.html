@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="梦路人的博客">
 <meta property="og:description" content="PHPStorm由著名公司JetBrains开发，JetBrains开发的IDE软件以智能、快速、集成、效率著称，本文本以PHPStorm IDE讲解搭建PHP的调试环境。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://i.17gx.com.cn/QQ20170306-185106@2x.png">
-<meta property="og:image" content="http://i.17gx.com.cn/QQ20170306-185452@2x.png">
-<meta property="og:image" content="http://i.17gx.com.cn/QQ20170306-190316@2x.png">
-<meta property="og:image" content="http://i.17gx.com.cn/QQ20170306-190453@2x.png">
-<meta property="og:image" content="http://i.17gx.com.cn/QQ20170306-191637@2x.png">
-<meta property="og:image" content="http://i.17gx.com.cn/QQ20170306-191037@2x.png">
-<meta property="og:updated_time" content="2018-11-26T07:07:12.000Z">
+<meta property="og:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-185106@2x.png">
+<meta property="og:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-185452@2x.png">
+<meta property="og:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-190316@2x.png">
+<meta property="og:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-190453@2x.png">
+<meta property="og:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-191637@2x.png">
+<meta property="og:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-191037@2x.png">
+<meta property="og:updated_time" content="2019-10-21T08:13:22.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Mac上配置基于PHPStorm调试环境">
 <meta name="twitter:description" content="PHPStorm由著名公司JetBrains开发，JetBrains开发的IDE软件以智能、快速、集成、效率著称，本文本以PHPStorm IDE讲解搭建PHP的调试环境。">
-<meta name="twitter:image" content="http://i.17gx.com.cn/QQ20170306-185106@2x.png">
+<meta name="twitter:image" content="http://blog-img.cn-sh2.ufileos.com/QQ20170306-185106@2x.png">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -197,12 +197,12 @@
         <p>PHPStorm由著名公司JetBrains开发，JetBrains开发的IDE软件以智能、快速、集成、效率著称，本文本以PHPStorm IDE讲解搭建PHP的调试环境。</p>
 <a id="more"></a>
 <h2 id="修改PHP配置文件"><a href="#修改PHP配置文件" class="headerlink" title="修改PHP配置文件"></a>修改PHP配置文件</h2><p>在Mac系统下，找到php.ini文件在“/etc”（这个只是个快捷方式）或“/private/etc”（真实路径），并在最后添加如下内容：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;xdebug</span></span><br><span class="line"><span class="attr">zend_extension</span>=<span class="string">"/usr/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so"</span></span><br><span class="line"><span class="attr">xdebug.remote_enable</span> = <span class="literal">On</span></span><br><span class="line"><span class="attr">xdebug.remote_handler</span> = <span class="string">"dbgp"</span></span><br><span class="line"><span class="attr">xdebug.remote_host</span> = <span class="string">"localhost"</span></span><br><span class="line"><span class="attr">xdebug.remote_port</span> = <span class="number">9000</span></span><br><span class="line"><span class="attr">xdebug.idekey</span> = PHPSTROM</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置PHPStorm"><a href="#配置PHPStorm" class="headerlink" title="配置PHPStorm"></a>配置PHPStorm</h2><p>第一步，找到如下配置项：<br><img src="http://i.17gx.com.cn/QQ20170306-185106@2x.png" alt></p>
-<p>第二步，修改内容如下：<br><img src="http://i.17gx.com.cn/QQ20170306-185452@2x.png" alt></p>
+<h2 id="配置PHPStorm"><a href="#配置PHPStorm" class="headerlink" title="配置PHPStorm"></a>配置PHPStorm</h2><p>第一步，找到如下配置项：<br><img src="http://blog-img.cn-sh2.ufileos.com/QQ20170306-185106@2x.png" alt></p>
+<p>第二步，修改内容如下：<br><img src="http://blog-img.cn-sh2.ufileos.com/QQ20170306-185452@2x.png" alt></p>
 <h2 id="Chrome插件"><a href="#Chrome插件" class="headerlink" title="Chrome插件"></a>Chrome插件</h2><p>第一步，从Chrome应用市场安装Xdebug helper:<br><a href="https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc" target="_blank" rel="noopener">https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc</a></p>
-<p>第二步，配置插件：<br>我们在这一步选择“选项”<br><img src="http://i.17gx.com.cn/QQ20170306-190316@2x.png" alt><br>再输入和上面相应的sessionkey<br><img src="http://i.17gx.com.cn/QQ20170306-190453@2x.png" alt></p>
-<h2 id="开启会话"><a href="#开启会话" class="headerlink" title="开启会话"></a>开启会话</h2><p>配置完上面这些步骤之后，接下来就是要连接这个会话，点击下面这个图标，使它成激活状态，才能通话：<br><img src="http://i.17gx.com.cn/QQ20170306-191637@2x.png" alt></p>
-<h2 id="运行并测试"><a href="#运行并测试" class="headerlink" title="运行并测试"></a>运行并测试</h2><p>使用Chrome浏览器刷新动态PHP网页，插件图标变成激活状态，然后就会停在PHPStorm的断点处：<br><img src="http://i.17gx.com.cn/QQ20170306-191037@2x.png" alt></p>
+<p>第二步，配置插件：<br>我们在这一步选择“选项”<br><img src="http://blog-img.cn-sh2.ufileos.com/QQ20170306-190316@2x.png" alt><br>再输入和上面相应的sessionkey<br><img src="http://blog-img.cn-sh2.ufileos.com/QQ20170306-190453@2x.png" alt></p>
+<h2 id="开启会话"><a href="#开启会话" class="headerlink" title="开启会话"></a>开启会话</h2><p>配置完上面这些步骤之后，接下来就是要连接这个会话，点击下面这个图标，使它成激活状态，才能通话：<br><img src="http://blog-img.cn-sh2.ufileos.com/QQ20170306-191637@2x.png" alt></p>
+<h2 id="运行并测试"><a href="#运行并测试" class="headerlink" title="运行并测试"></a>运行并测试</h2><p>使用Chrome浏览器刷新动态PHP网页，插件图标变成激活状态，然后就会停在PHPStorm的断点处：<br><img src="http://blog-img.cn-sh2.ufileos.com/QQ20170306-191037@2x.png" alt></p>
 
       
 
@@ -495,15 +495,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,11 +515,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,6 +536,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">first</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
