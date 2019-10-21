@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://yizzuide.github.io">
   <title>Mybatis问题排查之count查询总是返回0 | 梦路人的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：1SELECT count(1) FROM `cl_borrow` WHERE state IN (40,41) AND user_id = &apos;3267&apos;; 结果为：    count(1)     1    但是通过mybatis执行的sql返回总是0:1234&amp;lt;select id=">
+  <meta name="description" content="今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：1SELECT count(1) FROM `cl_borrow` WHERE state IN (40,41) AND user_id = &apos;3267&apos;;">
 <meta name="keywords" content="SQL,MySQL,Mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis问题排查之count查询总是返回0">
 <meta property="og:url" content="https://yizzuide.github.io/2019/08/23/Mybatis问题排查之count查询总是返回0/index.html">
 <meta property="og:site_name" content="梦路人的博客">
-<meta property="og:description" content="今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：1SELECT count(1) FROM `cl_borrow` WHERE state IN (40,41) AND user_id = &apos;3267&apos;; 结果为：    count(1)     1    但是通过mybatis执行的sql返回总是0:1234&amp;lt;select id=">
+<meta property="og:description" content="今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：1SELECT count(1) FROM `cl_borrow` WHERE state IN (40,41) AND user_id = &apos;3267&apos;;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-23T05:46:39.232Z">
+<meta property="og:updated_time" content="2019-10-21T08:37:43.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis问题排查之count查询总是返回0">
-<meta name="twitter:description" content="今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：1SELECT count(1) FROM `cl_borrow` WHERE state IN (40,41) AND user_id = &apos;3267&apos;; 结果为：    count(1)     1    但是通过mybatis执行的sql返回总是0:1234&amp;lt;select id=">
+<meta name="twitter:description" content="今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：1SELECT count(1) FROM `cl_borrow` WHERE state IN (40,41) AND user_id = &apos;3267&apos;;">
   
     <link rel="alternative" href="/atom.xml" title="梦路人的博客" type="application/atom+xml">
   
@@ -188,6 +188,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天业务上遇到一个诡异的问题，明明有已完成的订单，但是使用count查询总是返回0，直接使用sql运行如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">FROM</span> <span class="string">`cl_borrow`</span> <span class="keyword">WHERE</span> state <span class="keyword">IN</span> (<span class="number">40</span>,<span class="number">41</span>) <span class="keyword">AND</span> user_id = <span class="string">'3267'</span>;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>结果为：</p>
 <table>
 <thead>
@@ -491,15 +492,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,15 +512,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PHP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">民摇吉他曲</a>
               </li>
              
               <li class="article-tag-list-item">
